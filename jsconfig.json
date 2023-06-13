@@ -1,0 +1,10 @@
+{
+  "extends": "./jsconfig.paths.json",
+  "compilerOptions": {
+    "checkJs": true,
+    "jsx": "react-jsx",
+    "resolveJsonModule": true
+  },
+  "include": ["src", "src/**/*.json"],
+  "exclude": ["node_modules"]
+}

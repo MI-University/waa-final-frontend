@@ -1,0 +1,20 @@
+.serviceImg {
+}
+
+.buyCircle,
+.rentCircle,
+.sellCircle {
+  @apply absolute text-gray-400 bg-white w-20 h-20 lg:w-28 lg:h-28 border-4 border-green-300 rounded-full shadow-xl flex items-center justify-center p-4 text-xs;
+}
+
+.buyCircle {
+  @apply animate-drop duration-300 lg:w-24 lg:h-24 left-24 lg:left-20 border-orange-300 outline-4 top-8 lg:top-20;
+}
+
+.rentCircle {
+  @apply animate-drop-1sd top-48 lg:top-52 border-yellow-300 w-16 h-16 lg:w-20 right-0 lg:right-20 lg:h-20;
+}
+
+.sellCircle {
+  @apply animate-drop-2sd top-4 lg:top-24 right-0 lg:right-32;
+}

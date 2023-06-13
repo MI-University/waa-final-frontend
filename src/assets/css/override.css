@@ -1,0 +1,46 @@
+.slick-dots {
+  position: absolute;
+  left: 0;
+  bottom: -35px;
+  padding-left: 20px;
+  text-align: left;
+  & li {
+    margin-right: 20px;
+    & div {
+      @apply bg-gray-300/50;
+    }
+    &.slick-active > div {
+      @apply bg-accent;
+    }
+  }
+}
+
+.slick-dots li {
+  @apply inline-block;
+}
+.slick-dots span {
+  @apply bg-gray-500;
+}
+.slick-dots .slick-active span {
+  @apply bg-orange-500 rounded-l-full rounded-r-full w-12;
+}
+
+& .slick-prev {
+  position: absolute !important;
+  right: 60px !important;
+  bottom: 0px !important;
+  transform: translateY(100%);
+  @apply bg-white;
+}
+
+& .slick-next {
+  position: absolute !important;
+  right: 0 !important;
+  @apply bg-white;
+}
+
+.carot-shift:hover {
+  & > svg {
+    padding-left: 8px;
+  }
+}

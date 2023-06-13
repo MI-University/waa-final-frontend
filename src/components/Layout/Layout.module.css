@@ -1,0 +1,13 @@
+.content {
+  @apply min-h-screen;
+}
+
+/* header */
+.headerWrapper {
+  @apply fixed top-0 w-full z-30 bg-white duration-300 transition-all;
+}
+
+/* footer */
+.footerWrapper {
+  @apply bg-light pt-44 pb-24;
+}

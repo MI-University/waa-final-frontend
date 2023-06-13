@@ -1,0 +1,10 @@
+.searchBanner {
+  @apply relative z-10 mb-6;
+  margin-bottom: -1.5rem;
+}
+
+.bannerMask {
+  @apply absolute w-full z-10 top-0 left-0 right-0 bottom-0 bg-black;
+  background: rgba(54, 54, 54, 0.9);
+  mix-blend-mode: multiply;
+}

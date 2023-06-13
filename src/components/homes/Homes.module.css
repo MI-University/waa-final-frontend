@@ -1,0 +1,6 @@
+.homeCard {
+  background: white;
+  &:hover button {
+    @apply bg-accent text-white shadow-lg transition-all duration-300;
+  }
+}

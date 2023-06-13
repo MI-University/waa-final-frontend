@@ -1,0 +1,24 @@
+{
+  "nav": [
+    {
+      "name": "About",
+      "link": "about"
+    },
+    {
+      "name": "Feature",
+      "link": "feature"
+    },
+    {
+      "name": "FAQ",
+      "link": "faq"
+    }
+  ],
+  "bannerData": {
+    "title": "Want anything to be easy with <strong class=\"text-accent mt-4\">MyHome</strong>",
+    "description": ""
+  },
+  "searchBannerData": {
+    "title": "Search your desired home <strong class=\"text-accent lg:mt-4\">MyHome</strong>",
+    "description": ""
+  }
+}

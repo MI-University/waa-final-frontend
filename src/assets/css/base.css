@@ -1,0 +1,24 @@
+:root {
+  --font-mono: 'Figtree', -apple-system, BlinkMacSystemFont, Roboto, 'Segoe UI',
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --primary-color: #ff5a3c;
+  --secondary-color: #fff6f5;
+  --accent-color: #ff5a3c;
+  --secondary-base-color: #595959;
+  --primary-text-color: #262626;
+  --secondary-text-color: #808080;
+  --accent-text-color: var(--primary-color);
+  --border-color: #00b96b;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --light-bg-color: #ecf3f3;
+  --dark-bg-color: #2a3439;
+}
+
+body {
+  margin: 0;
+  max-width: 100vw;
+  overflow-x: hidden;
+
+  @apply text-sm lg:text-base;
+}
