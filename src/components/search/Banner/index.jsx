@@ -28,7 +28,7 @@ const Banner = () => {
           }}>
           <div className={s.bannerMask} />
           <div className="container max-w-screen-xl mx-auto relative z-50">
-            <div className="lg:w-3/5 mx-auto flexx relative z-30 flex-col lg:flex-row items-center lg:h-auto justify-center py-8 lg:py-12 mt-16 lg:mt-20">
+            <div className="lg:w-3/5 mx-auto flexx relative z-30 flex-col lg:flex-row items-center lg:h-auto justify-center py-8 lg:py-16 mt-16 lg:mt-18">
               <div className="flex-grow text-center flex flex-col items-center justify-center">
                 <div className="flexx text-center flex-col items-center justify-center">
                   <h2

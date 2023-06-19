@@ -1,24 +1,56 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation, useNavigation } from 'react-router-dom';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useNavigation
+} from 'react-router-dom';
 import Logo from '@components/ui/Logo';
 import Button from '@components/common/Button';
 import s from './Layout.module.css';
 import data from '@data/static.json';
-import { FaSearch } from 'react-icons/fa';
+import { FaCross, FaSearch, FaTimes } from 'react-icons/fa';
 import { useData } from '@store/providers/Provider';
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState(null);
   const [scrollActive, setScrollActive] = useState(false);
   const [showSearch, seShowSearch] = useState(false);
+  const [searchText, setSearchText] = useState('');
   const nav = data.nav;
   const { isAuthenticated, user, logout } = useData();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const scrollListen = useCallback((e) => {
     setScrollActive(window.scrollY > 20);
   }, []);
 
+  const debounce = useMemo(() => {
+    let ref = null;
+    return (callback, time) => {
+      clearTimeout(ref);
+      ref = setTimeout(() => callback(), time);
+    };
+  }, []);
+
+  const onSearchChange = (e) => {
+    e.preventDefault();
+    debounce(() => setSearchText(e.target.value), 800);
+  };
+
+  const onKeyUp = (e) => {
+    e.preventDefault();
+    if (e.key === 'Enter') {
+      console.log('Going', searchText);
+      navigate('/search', {
+        state: {
+          searchText
+        }
+      });
+    }
+  };
+  
   useEffect(() => {
     if (location.pathname === '/') {
       window.addEventListener('scroll', scrollListen);
@@ -32,6 +64,7 @@ const Header = () => {
     } else {
       setScrollActive(false);
     }
+    seShowSearch(false);
   }, [location]);
 
   return (
@@ -90,20 +123,36 @@ const Header = () => {
               'col-start-10 col-end-12 font-medium flex justify-end items-center relative ' +
               (scrollActive ? 'mt-0' : 'mt-4 lg:mt-0')
             }>
-            <input
-              type="text"
-              placeholder="search by state, zip"
-              className={
-                'border rounded-full p-2 px-4 absolute w-60 lg:w-52 transition-all duration-500 top-16 lg:top-auto right-0 outline-accent ' +
-                (showSearch ? 'block' : 'hidden')
-              }
-            />
-            <button
-              className="p-2 py-4 mr-0 text-orange-400"
-              onClick={() => seShowSearch(!showSearch)}>
-              <FaSearch />
-            </button>
-            <div>
+            <div className="relative pl-6 flex items-center">
+              <button
+                className={
+                  'p-2 py-4 mr-0 text-orange-400 absolute left-0' +
+                  (showSearch ? ' left--12' : '')
+                }
+                onClick={() => seShowSearch(!showSearch)}>
+                <FaSearch />
+              </button>
+              <div
+                className={
+                  'flex items-center absolute w-60 lg:w-72 transition-all top-16 lg:top-auto right-0 outline-accent ' +
+                  (showSearch
+                    ? ' opacity-1 visible '
+                    : ' opacity-0 invisible !w-0')
+                }>
+                <FaTimes
+                  className="cursor-pointer mr-2 text-accent"
+                  onClick={() => seShowSearch(false)}
+                />
+                <input
+                  type="text"
+                  placeholder="search by state, zip"
+                  className={
+                    'border rounded-full outline-orange-400 w-full z-50 p-2 px-4 '
+                  }
+                  onChange={onSearchChange}
+                  onKeyUp={onKeyUp}
+                />
+              </div>
               {isAuthenticated ? (
                 <>
                   <Link
@@ -113,13 +162,15 @@ const Header = () => {
                     Logout
                   </Link>
                   <Button outlined>
-                    <Link to="/profile">{user?.name || 'Profile'}</Link>
+                    <Link to="/profile">
+                      {user?.name?.split(' ')[0] || 'Profile'}
+                    </Link>
                   </Button>
                 </>
               ) : (
                 <>
                   <Link
-                    to="/"
+                    to="/login"
                     className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
                       Sign In
                   </Link>

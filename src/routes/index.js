@@ -16,6 +16,7 @@ import RegisterPage from '@pages/Register';
 import { RequireAuth } from '@components/ui';
 import Missing from '@pages/Missing';
 import redirectIfUser from '@utils/redirectIfUser';
+import LoginPage from '@pages/Login';
 
 export default (
   <Routes>
@@ -42,8 +43,7 @@ export default (
         element={<RegisterPage />}
         loader={redirectIfUser}
       />
-      {/* <Route path="login" element={<Login />} loader={redirectIfUser} /> */}
-      {/* <Route path="logout" action={logoutUser} /> */}
+      <Route path="login" element={<LoginPage />} loader={redirectIfUser} />
     </Route>
     <Route path="*" element={<Missing />} />
   </Routes>

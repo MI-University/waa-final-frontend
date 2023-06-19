@@ -5,7 +5,7 @@ import { FaAngleRight, FaAngleLeft, FaArrowRight } from 'react-icons/fa';
 import Container from '@components/ui/Container';
 import ImgHome1 from '../../../assets/images/home-6.png';
 import ImgHome2 from '../../../assets/images/home-7.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const data = [
   {
@@ -47,6 +47,8 @@ export const data = [
 ];
 
 const Result = () => {
+  const location = useLocation();
+  console.log('location state', location);
   const mqlRef = useRef(null);
 
   useEffect(() => {
