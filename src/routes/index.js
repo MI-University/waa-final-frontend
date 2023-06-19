@@ -4,15 +4,21 @@ import {
   RouterProvider,
   Route,
   Link,
-  createRoutesFromElements
+  createRoutesFromElements,
+  Routes
 } from 'react-router-dom';
 
 import Layout from '../components/Layout';
 import Landing from '../pages/Landing';
 import Search from '@pages/Search';
+import AuthLayout from '@components/AuthLayout';
+import RegisterPage from '@pages/Register';
+import { RequireAuth } from '@components/ui';
+import Missing from '@pages/Missing';
+import redirectIfUser from '@utils/redirectIfUser';
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
+export default (
+  <Routes>
     <Route path="/" element={<Layout />}>
       <Route index element={<Landing />} />
       <Route
@@ -24,12 +30,21 @@ const router = createBrowserRouter(
           })
         }
       />
-      {/* <Route element={<AuthLayout />}>
-        <Route path="login" element={<Login />} loader={redirectIfUser} />
-        <Route path="logout" action={logoutUser} />
-      </Route> */}
     </Route>
-  )
+    <Route element={<RequireAuth />}>
+      {/* <Route path="/" element={<UserProfile />} />
+      <Route path="/user" element={<UserProfile />} />
+      <Route path="/counter" element={<Counter />} /> */}
+    </Route>
+    <Route element={<AuthLayout />}>
+      <Route
+        path="register"
+        element={<RegisterPage />}
+        loader={redirectIfUser}
+      />
+      {/* <Route path="login" element={<Login />} loader={redirectIfUser} /> */}
+      {/* <Route path="logout" action={logoutUser} /> */}
+    </Route>
+    <Route path="*" element={<Missing />} />
+  </Routes>
 );
-
-export default <RouterProvider router={router} />;

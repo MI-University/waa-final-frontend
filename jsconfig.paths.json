@@ -8,7 +8,9 @@
       "@data/*": ["data/*"],
       "@pages/*": ["pages/*"],
       "@routes/*": ["routes/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@store/*": ["store/*"],
+      "@service/*": ["service/*"]
     }
   }
 }

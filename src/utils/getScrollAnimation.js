@@ -1,16 +1,20 @@
-export default function getScrollAnimation() {
+export default function getScrollAnimation(
+  dir = 'y',
+  shift = 150,
+  type = 'spring'
+) {
   return {
     offscreen: {
-      y: 150,
-      opacity: 0,
+      [dir]: shift,
+      opacity: 0
     },
     onscreen: ({ duration = 2 } = {}) => ({
-      y: 0,
+      [dir]: 0,
       opacity: 1,
       transition: {
-        type: "spring",
-        duration,
-      },
-    }),
+        type: type,
+        duration
+      }
+    })
   };
 }

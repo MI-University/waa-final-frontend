@@ -10,7 +10,13 @@ const Footer = () => {
     <div className={s.footerWrapper}>
       <div className="text-center lg:max-w-screen-xl flex justify-center flex-col w-full mx-auto px-6 sm:px-8 lg:px-16 gridx grid-rows-2 sm:grid-rows-1 grid-flow-row sm:grid-flow-col grid-cols-3 sm:grid-cols-12 gap-4">
         <div className="row-span-2 sm:col-span-4 col-start-1 col-end-4 sm:col-end-5 flex flex-col items-center ">
-          <div className=" w-auto mb-6">
+          <div
+            className=" w-auto mb-6"
+            // style={{
+            //   filter:
+            //     'invert(1) hue-rotate(188deg) brightness(1.2) contrast(1.5)'
+            // }}
+          >
             <Logo orientation="v" />
           </div>
           <div className="flex mt-2 mb-8 -mx-2">

@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useNavigation } from 'react-router-dom';
 import Logo from '@components/ui/Logo';
 import Button from '@components/common/Button';
 import s from './Layout.module.css';
 import data from '@data/static.json';
 import { FaSearch } from 'react-icons/fa';
+import { useData } from '@store/providers/Provider';
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState(null);
   const [scrollActive, setScrollActive] = useState(false);
   const [showSearch, seShowSearch] = useState(false);
   const nav = data.nav;
-
+  const { isAuthenticated, user, logout } = useData();
   const location = useLocation();
 
+  const scrollListen = useCallback((e) => {
+    setScrollActive(window.scrollY > 20);
+  }, []);
+
   useEffect(() => {
-    if (location.pathname !== '/search') {
-      window.addEventListener('scroll', (e) => {
-        setScrollActive(window.scrollY > 20);
-      });
+    if (location.pathname === '/') {
+      window.addEventListener('scroll', scrollListen);
     }
   }, []);
 
   useEffect(() => {
-    if (location.pathname == '/search') {
+    if (location.pathname !== '/') {
+      window.removeEventListener('scroll', scrollListen);
       setScrollActive(true);
+    } else {
+      setScrollActive(false);
     }
   }, [location]);
 
@@ -97,12 +103,32 @@ const Header = () => {
               onClick={() => seShowSearch(!showSearch)}>
               <FaSearch />
             </button>
-            <Link
-              to="/"
-              className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
-                Sign In
-            </Link>
-            <Button outlined>Sign Up</Button>
+            <div>
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    to="#"
+                    onClick={() => logout()}
+                    className="text-gray-500 mx-2 text-sm border-b-2 pb-1 hover:border-orange-500 hover:text-gray-500 px-0 mx-0 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
+                    Logout
+                  </Link>
+                  <Button outlined>
+                    <Link to="/profile">{user?.name || 'Profile'}</Link>
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/"
+                    className="text-black-600 mx-2 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
+                      Sign In
+                  </Link>
+                  <Button outlined>
+                    <Link to="/register">Sign Up</Link>
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         </nav>
       </header>

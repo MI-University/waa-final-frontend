@@ -10,4 +10,5 @@
 /* footer */
 .footerWrapper {
   @apply bg-light pt-44 pb-24;
+  /* background: #262626; */
 }

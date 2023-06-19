@@ -11,6 +11,8 @@ const Button = ({
   size = 'md',
   outlined = false,
   className = '',
+  loading = false,
+  htmlType = 'button',
   ...props
 }) => {
   const sizeClasses = sizes[size];
@@ -23,7 +25,8 @@ const Button = ({
           ? ' font-medium tracking-wide border border-orange-500 text-orange-500 bg-white-500 outline-none rounded-l-full rounded-r-full capitalize hover:bg-accent hover:text-white-500 transition-all hover:text-white hover:shadow-orange '
           : ' font-semibold rounded-lg bg-accent hover:shadow-2xl transition-300 shadow-accent transition-all outline-none text-white ')
       }
-      {...props}>
+      {...props}
+      disabled={loading}>
       {children}
     </button>
   );
