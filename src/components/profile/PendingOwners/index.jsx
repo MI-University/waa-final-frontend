@@ -30,6 +30,19 @@ const PendingOwners = () => {
       });
   };
 
+  const cancelApproval = (id) => {
+    setLoading(true);
+    ownerService
+      .cancel(id)
+      .then(() => {
+        setLoading(false);
+        getAll();
+      })
+      .catch((error) => {
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     getAll();
   }, []);
@@ -79,18 +92,17 @@ const PendingOwners = () => {
                   </div>
                   <div className="p-2 px-6">
                     {data.approved ? (
-                      <span className="text-gray-300"></span>
+                      <button
+                        className="p-2"
+                        onClick={() => cancelApproval(data.id)}>
+                        <FaTimes className="text-red-500" />
+                      </button>
                     ) : (
-                      <>
-                        <button
-                          className="p-2 mr-2"
-                          onClick={() => acceptRequest(data.id)}>
-                          <FaCheck className="text-green-500" />
-                        </button>
-                        <button className="p-2">
-                          <FaTimes className="text-red-500" />
-                        </button>
-                      </>
+                      <button
+                        className="p-2 mr-2"
+                        onClick={() => acceptRequest(data.id)}>
+                        <FaCheck className="text-green-500" />
+                      </button>
                     )}
                   </div>
                 </div>

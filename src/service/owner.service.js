@@ -38,4 +38,15 @@ const accept = (id) => {
     });
 };
 
-export { getAll, updateOne, accept };
+const cancel = (id) => {
+  return updateOne(id, { approved: false })
+    .then((res) => {
+      return res.data;
+    })
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
+};
+
+export { getAll, updateOne, accept, cancel };
