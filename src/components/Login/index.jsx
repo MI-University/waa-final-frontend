@@ -21,7 +21,7 @@ export default function Login() {
       .login(data)
       .then((resData) => {
         loginSuccess(resData);
-        navigate('/');
+        navigate('/dashboard');
       })
       .catch((error) => {
         setLoading(false);

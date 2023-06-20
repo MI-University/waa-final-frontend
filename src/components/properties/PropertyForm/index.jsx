@@ -2,7 +2,7 @@ import { Input, Button, Form } from '@components/common';
 import { propertyService } from '@service/';
 import { useData } from '@store/providers/Provider';
 import { userType } from '@utils/constants/types.contants';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   FaUser,
   FaEnvelopeOpen,
@@ -10,18 +10,19 @@ import {
   FaPlus,
   FaMinus
 } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import s from './PropertyForm.module.css';
 
 const PropertyForm = () => {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState({ success: false, text: '' });
   const [role, setRole] = useState(userType.CUSTOMER);
   const [images, setImages] = useState([Date.now()]);
+  const [data, setData] = useState(null);
 
   const form = useRef(null);
   const navigate = useNavigate();
-  const { registrationSuccess } = useData();
+  const { id } = useParams();
 
   const onFinish = (data) => {
     setLoading(true);
@@ -34,15 +35,39 @@ const PropertyForm = () => {
         state: data?.state
       }
     };
-    propertyService
-      .addOne(readyData)
-      .then((resData) => {
+    if (id) {
+      propertyService
+        .updateOne(id, readyData)
+        .then((resData) => {
+          setLoading(false);
+          setMessage({ success: true, text: 'Updated successfully' });
+        })
+        .catch((error) => {
+          setLoading(false);
+          setMessage({ success: false, text: error.message });
+        });
+    } else {
+      propertyService
+        .addOne(readyData)
+        .then((resData) => {
+          setLoading(false);
+          setMessage({ success: true, text: 'Added successfully' });
+        })
+        .catch((error) => {
+          setLoading(false);
+          setMessage({ success: false, text: error.message });
+        });
+    }
+  };
+
+  const getDetails = () => {
+    if (id) {
+      setLoading(true);
+      propertyService.getOne(id).then((resData) => {
         setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setMessage(error.message);
+        setData(resData);
       });
+    }
   };
 
   const add = () => {
@@ -57,6 +82,10 @@ const PropertyForm = () => {
       });
     }
   };
+
+  useEffect(() => {
+    getDetails();
+  }, [id]);
 
   return (
     <div className="w-full mt-6">
@@ -139,11 +168,15 @@ const PropertyForm = () => {
                         className="w-full flex-grow"
                       />
                       {images.length - 1 === i ? (
-                        <button className="mb-4 p-4 px-6" onClick={() => add()}>
+                        <button
+                          type="button"
+                          className="mb-4 p-4 px-6"
+                          onClick={() => add()}>
                           <FaPlus />
                         </button>
                       ) : (
                         <button
+                          type="button"
                           className="mb-4 p-4 px-6"
                           onClick={() => remove(i)}>
                           <FaMinus />
@@ -154,8 +187,14 @@ const PropertyForm = () => {
                 </div>
               </div>
 
-              {message && (
-                <p className="text-red-500 text-sm pb-2">{message}</p>
+              {message?.text && (
+                <p
+                  className={
+                    'text-sm pb-2 ' +
+                    (message?.success ? 'text-green-500' : 'text-red-500')
+                  }>
+                  {message?.text}
+                </p>
               )}
               <Button
                 type="primary"

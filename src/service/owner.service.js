@@ -28,7 +28,7 @@ const updateOne = (id, body) => {
 };
 
 const accept = (id) => {
-  return updateOne(id, { approve: true })
+  return updateOne(id, { approved: true })
     .then((res) => {
       return res.data;
     })

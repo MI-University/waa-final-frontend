@@ -23,7 +23,7 @@ export default function Register() {
       .register(data)
       .then((resData) => {
         registrationSuccess(resData);
-        navigate('/');
+        navigate('/dashboard');
       })
       .catch((error) => {
         setLoading(false);

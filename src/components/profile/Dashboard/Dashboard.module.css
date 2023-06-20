@@ -11,3 +11,15 @@
     var(--secondary-color)
   );
 }
+
+.name {
+  @apply text-gray-500;
+}
+
+.value {
+  @apply text-4xl font-bold text-accent;
+}
+
+.underline {
+  @apply w-28 opacity-80;
+}

@@ -11,7 +11,7 @@ const PendingOwners = () => {
 
   const getAll = () => {
     setLoading(true);
-    ownerService.getAll({ approve: true }).then((list) => {
+    ownerService.getAll().then((list) => {
       setLoading(false);
       setList(list);
     });
@@ -44,37 +44,37 @@ const PendingOwners = () => {
         ) : (
           <div className="grid">
             <div className="grid grid-cols-4 gap-4 mb-2">
-              <div className="p-2 px-6 font-bold text-sm text-gray-500">
+              <div className="p-2 px-6 font-bold  py-3 text-sm text-gray-500">
                 Name
               </div>
-              <div className="p-2 px-6 font-bold text-sm text-gray-500">
+              <div className="p-2 px-6 font-bold  py-3 text-sm text-gray-500">
                 Email
               </div>
-              <div className="p-2 px-6 font-bold text-sm text-gray-500">
-                Approved
+              <div className="p-2 px-6 font-bold  py-3 text-sm text-gray-500">
+                Status
               </div>
-              <div className="p-2 px-6 font-bold text-sm text-gray-500">
+              <div className="p-2 px-6 font-bold  py-3 text-sm text-gray-500">
                 Action
               </div>
             </div>
             {list?.map((data) => {
               return (
                 <div className="grid grid-cols-4 gap-4 [&:nth-child(2n)]:bg-gray-100">
-                  <div className="p-2 px-6 text-sm flex items-center">
+                  <div className="p-2 px-6  py-3 text-sm flex items-center">
                     {data.name || '-'}
                   </div>
-                  <div className="p-2 px-6 text-sm flex items-center">
+                  <div className="p-2 px-6  py-3 text-sm flex items-center">
                     {data.email || '-'}
                   </div>
-                  <div className={'p-2 px-6 text-sm flex items-center '}>
+                  <div className={'p-2 px-6  py-3 text-sm flex items-center '}>
                     <span
                       className={
-                        'px-4 py-[3px] inline-block rounded w-16 text-center ' +
+                        'px-4 py-1 inline-block rounded w-[100px] text-xs text-center ' +
                         (data.approved
                           ? 'text-white bg-green-500'
                           : ' text-white bg-yellow-400')
                       }>
-                      {`${data.approved}`}
+                      {`${data.approved ? 'APPROVED' : 'PENDING'}`}
                     </span>
                   </div>
                   <div className="p-2 px-6">
@@ -85,10 +85,10 @@ const PendingOwners = () => {
                         <button
                           className="p-2 mr-2"
                           onClick={() => acceptRequest(data.id)}>
-                          <FaCheck className="text-sm text-green-500" />
+                          <FaCheck className="text-green-500" />
                         </button>
                         <button className="p-2">
-                          <FaTimes className="text-sm text-red-500" />
+                          <FaTimes className="text-red-500" />
                         </button>
                       </>
                     )}

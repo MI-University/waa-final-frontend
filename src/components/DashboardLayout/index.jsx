@@ -30,7 +30,7 @@ const DashboardLayout = () => {
               </div>
               <ul className="text-gray-400">
                 {nav?.map((item) => (
-                  <li className="py-2 px-2 mb-4 hover:text-white border-b-4 hover:border-orange-300 border-gray-600">
+                  <li className="py-2 px-2 mb-4 hover:text-white border-b-4 hover:!border-orange-300 border-gray-600">
                     <Link to={item.link} className="flex items-center">
                       <span className="mr-2"> {item.icon}</span> {item.name}
                     </Link>

@@ -6,7 +6,7 @@ const PATH = apiDomains.PROPERTY;
 const getAll = () => {
   return API.get(`${PATH}`)
     .then((res) => {
-      return res.data;
+      return res.data?.data;
     })
     .catch((error) => {
       console.error(error);
@@ -17,7 +17,7 @@ const getAll = () => {
 const getOne = (id) => {
   return API.get(`${PATH}/${id}`)
     .then((res) => {
-      return res.data;
+      return res.data?.data;
     })
     .catch((error) => {
       console.error(error);
@@ -28,16 +28,34 @@ const getOne = (id) => {
 const addOne = (data) => {
   return API.post(`${PATH}`, data)
     .then((res) => {
-      return res.data;
+      return res.data?.data;
     })
     .catch((error) => {
       console.error(error);
-      return [];
+      throw new Error(error);
+    });
+};
+
+const updateOne = (id, data) => {
+  return API.post(`${PATH}/${id}`, data)
+    .then((res) => {
+      return res.data?.data;
+    })
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
     });
 };
 
 const deleteOne = (id) => {
-  return API.delete(`${PATH}/${id}`);
+  return API.delete(`${PATH}/${id}`)
+    .then((res) => {
+      return res.data?.data;
+    })
+    .catch((error) => {
+      console.error(error);
+      throw new Error(error);
+    });
 };
 
-export { getAll, getOne, addOne, deleteOne };
+export { getAll, getOne, addOne, updateOne, deleteOne };
