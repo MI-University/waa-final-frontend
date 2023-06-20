@@ -4,13 +4,9 @@ import { apiDomains } from '@utils/constants/types.contants';
 const PATH = apiDomains.AUTH;
 
 const login = (data) => {
-  return API.post(`${PATH}/authenticate`, data, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
+  return API.post(`${PATH}/authenticate`, data)
     .then((res) => {
-      return res.data;
+      return res.data?.data;
     })
     .catch((error) => {
       console.error('Login error', error);
@@ -19,13 +15,9 @@ const login = (data) => {
 };
 
 const register = (data) => {
-  return API.post(`${PATH}/register`, data, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
+  return API.post(`${PATH}/register`, data)
     .then((res) => {
-      return res.data;
+      return res.data?.data;
     })
     .catch((error) => {
       console.error('Registration error:', error);

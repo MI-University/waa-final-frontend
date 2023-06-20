@@ -18,7 +18,7 @@ const SliderArrow = (props) => {
       onClick={onClick}
       className={
         className +
-        ' shadow-md text-lg rounded-full bg-white p-4 mr-2 hover:bg-accent hover:text-accent'
+        ' shadow-md text-lg rounded-full bg-white p-4 mr-2 hover:bg-accent hover:text-white'
       }>
       {type === 'next' ? <FaAngleRight /> : <FaAngleLeft />}
     </button>

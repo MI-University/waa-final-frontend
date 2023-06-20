@@ -46,8 +46,53 @@
 }
 
 .p-title {
-  @apply text-2xl font-bold text-gray-500;
+  @apply text-2xl font-bold text-gray-500 mb-6;
 }
 
 .form-flex {
+}
+
+input[type='radio'] {
+  @apply bg-white border-2 border-gray-400 !outline-none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+}
+
+input[type='radio']::before {
+  @apply bg-accent transition-all;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: scale(0);
+}
+
+input[type='radio']:checked::before {
+  transform: scale(1);
+}
+
+input[type='radio']:focus {
+  outline: max(2px, 0.15em) solid currentColor;
+  outline-offset: max(2px, 0.15em);
+}
+
+.loader-anim {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

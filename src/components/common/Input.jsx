@@ -9,7 +9,7 @@ const Input = (props) => {
         <div className="inline-block flex items-center justify-center w-11 h-11">
           <input
             {...props}
-            className={'px-4 p-4 cursor-pointer w-4 ' + (props.className || '')}
+            className={'px-2 p-2 cursor-pointer w-4 ' + (props.className || '')}
           />
         </div>
       ) : (

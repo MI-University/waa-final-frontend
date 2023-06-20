@@ -8,5 +8,7 @@ export const tokenKey = 'authToken';
 
 export const apiDomains = {
   AUTH: '/auth',
-  PROPERTY: '/properties'
+  PROPERTY: '/properties',
+  OWNER: '/users',
+  OFFER: '/offers'
 };

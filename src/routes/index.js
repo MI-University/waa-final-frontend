@@ -1,14 +1,8 @@
 import React from 'react';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-  createRoutesFromElements,
-  Routes
-} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import redirectIfUser from '@utils/redirectIfUser';
+import { paths } from '@utils/constants/paths.contants';
 import { RequireAuth } from '@components/ui';
 import Layout from '@components/Layout';
 import AuthLayout from '@components/AuthLayout';
@@ -23,47 +17,52 @@ import MyPropertiesPage from '@pages/dashboard/my-properties';
 import MyNewPropertyPage from '@pages/dashboard/my-properties/New';
 import MyPropertyDetailPage from '@pages/dashboard/my-properties/Details';
 import MyPropertyUpdatePage from '@pages/dashboard/my-properties/Update';
+import PendingOwnersPage from '@pages/dashboard/pending-owners';
+import checkIsAdmin from '@utils/checkIsAdmin';
+import MyOffersPage from '@pages/dashboard/my-offers';
 
 export default (
   <Routes>
-    <Route path="/" element={<Layout />}>
+    <Route path={paths.BASE} element={<Layout />}>
       <Route index element={<Landing />} />
-      <Route
-        path="search"
-        element={<Search />}
-        loader={({ request }) =>
-          fetch('/api/dashboard.json', {
-            signal: request.signal
-          })
-        }
-      />
+      <Route path={paths.SEARCH} element={<Search />} />
     </Route>
     <Route element={<RequireAuth />}>
       <Route element={<DashboardLayout />}>
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/dashboard/my-properties" element={<MyPropertiesPage />} />
+        <Route path={paths.DASHBOARD} element={<DashboardPage />} />
+        <Route path={paths.MY_PROPERTIES} element={<MyPropertiesPage />} />
         <Route
-          path="/dashboard/my-properties/:id"
+          path={paths.MY_PROPERTY_DETAILS}
           element={<MyPropertyDetailPage />}
         />
         <Route
-          path="/dashboard/my-properties/new"
+          path={paths.MY_PROPERTY_CREATE}
           element={<MyNewPropertyPage />}
         />
         <Route
-          path="/dashboard/my-properties/:id/update"
+          path={paths.MY_PROPERTY_UPDATE}
           element={<MyPropertyUpdatePage />}
         />
+        <Route
+          path={paths.PENDING_OWNERS}
+          element={<PendingOwnersPage />}
+          loader={checkIsAdmin}
+        />
+        <Route path={paths.MY_OFFERS} element={<MyOffersPage />} />
       </Route>
     </Route>
     <Route element={<AuthLayout />}>
       <Route
-        path="register"
+        path={paths.REGISTER}
         element={<RegisterPage />}
         loader={redirectIfUser}
       />
-      <Route path="login" element={<LoginPage />} loader={redirectIfUser} />
+      <Route
+        path={paths.LOGIN}
+        element={<LoginPage />}
+        loader={redirectIfUser}
+      />
     </Route>
-    <Route path="*" element={<Missing />} />
+    <Route path={paths.ALL} element={<Missing />} />
   </Routes>
 );

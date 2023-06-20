@@ -63,7 +63,7 @@ export default function Register() {
                   label="Password"
                 />
                 <div className="flex items-center">
-                  <div className="flex items-center">
+                  <div className="flex items-center mr-4">
                     <Input
                       type="radio"
                       name="role"

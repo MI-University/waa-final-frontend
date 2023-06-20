@@ -75,7 +75,7 @@ const Header = () => {
         }>
         <nav
           className={
-            'max-w-screen-xl px-4 sm:px-8 lg:px-16 mx-auto grid grid-flow-col py-3 sm:py-6' +
+            'max-w-screen-xl px-4 sm:px-8 lg:px-16 mx-auto grid grid-flow-col grid-cols-12 py-3 sm:py-6' +
             (scrollActive ? ' sm:!py-4' : '')
           }>
           <ul className="hidden lg:flex col-start-1 col-end-6 text-black-500  items-center">
@@ -120,7 +120,7 @@ const Header = () => {
           </div>
           <div
             className={
-              'col-start-10 col-end-12 font-medium flex justify-end items-center relative ' +
+              'col-start-8 col-end-12 font-medium flex justify-end items-center relative ' +
               (scrollActive ? 'mt-0' : 'mt-4 lg:mt-0')
             }>
             <div className="relative pl-6 flex items-center">

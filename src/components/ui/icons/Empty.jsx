@@ -4,8 +4,8 @@ const Empty = (props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="184"
-      height="117"
+      width="8em"
+      height="8em"
       viewBox="0 0 184 117"
       fill="none"
       {...props}

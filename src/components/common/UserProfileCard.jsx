@@ -26,7 +26,7 @@ const UserProfile = ({ onClose }) => {
         </button>
       </div>
       <div className="flex flex-col justify-center text-center gap-5 items-center border-color border-b-1 pb-4">
-        <div className="rounded-full flex items-center text-gray-800 justify-center bg-gray-300 h-16 w-16">
+        <div className="rounded-full flex items-center text-gray-800 justify-center bg-gray-100 h-16 w-16">
           <FaUser />
         </div>
         <div>
