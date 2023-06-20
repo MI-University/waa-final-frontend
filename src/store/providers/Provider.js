@@ -1,4 +1,4 @@
-import { setToken } from '@utils/helpers/token.helpers';
+import { removeToken, setToken } from '@utils/helpers/token.helpers';
 import Cookies from 'js-cookie';
 import { useCallback, useMemo } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';

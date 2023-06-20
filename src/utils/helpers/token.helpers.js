@@ -1,3 +1,4 @@
+import { tokenKey } from '@utils/constants/types.contants';
 import Cookies from 'js-cookie';
 
 export const getToken = () => {
@@ -9,6 +10,6 @@ export const setToken = (token) => {
   Cookies.set(tokenKey, token);
 };
 
-export const removeToken = (token) => {
+export const removeToken = () => {
   Cookies.remove(tokenKey);
 };

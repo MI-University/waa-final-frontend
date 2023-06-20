@@ -1,6 +1,7 @@
 import API from '@config/config';
+import { apiDomains } from '@utils/constants/types.contants';
 
-const PATH = '/auth';
+const PATH = apiDomains.AUTH;
 
 const login = (data) => {
   return API.post(`${PATH}/authenticate`, data, {

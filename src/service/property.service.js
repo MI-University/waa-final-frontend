@@ -1,6 +1,7 @@
 import API from '@config/config';
+import { apiDomains } from '@utils/constants/types.contants';
 
-const PATH = '/properties';
+const PATH = apiDomains.PROPERTY;
 
 const getAll = () => {
   return API.get(`${PATH}`)

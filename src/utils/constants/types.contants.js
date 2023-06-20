@@ -6,7 +6,7 @@ export const userType = {
 
 export const tokenKey = 'authToken';
 
-export const apiEndpoints = {
-  AUTH: "/auth",
-  // PROPERTY
-}
+export const apiDomains = {
+  AUTH: '/auth',
+  PROPERTY: '/properties'
+};
