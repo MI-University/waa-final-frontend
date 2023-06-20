@@ -1,3 +1,5 @@
+import { setToken } from '@utils/helpers/token.helpers';
+import Cookies from 'js-cookie';
 import { useCallback, useMemo } from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { authActions, store } from '..';
@@ -8,6 +10,7 @@ export const useData = () => {
 
   const registrationSuccess = useCallback(
     (author) => {
+      setToken(author.token);
       dispatch(authActions.register(author));
     },
     [dispatch]
@@ -15,12 +18,14 @@ export const useData = () => {
 
   const loginSuccess = useCallback(
     (author) => {
+      setToken(author.token);
       dispatch(authActions.login(author));
     },
     [dispatch]
   );
 
   const logout = useCallback(() => {
+    removeToken();
     dispatch(authActions.logout());
   }, [dispatch]);
 

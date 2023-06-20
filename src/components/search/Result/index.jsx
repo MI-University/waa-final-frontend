@@ -56,10 +56,10 @@ const Result = () => {
   }, []);
 
   return (
-    <div className="bg-white mb-20">
+    <div className="bg-gray-100 pb-20">
       <Container>
-        <div className="mt-12">
-          <div className="col-span-12 lg:col-span-3">
+        <div className="pt-6">
+          <div className="col-span-12 lg:col-span-3 mt-6 px-2">
             <div
               style={{
                 height: '100%',

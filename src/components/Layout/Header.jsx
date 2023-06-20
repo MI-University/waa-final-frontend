@@ -11,6 +11,7 @@ import s from './Layout.module.css';
 import data from '@data/static.json';
 import { FaCross, FaSearch, FaTimes } from 'react-icons/fa';
 import { useData } from '@store/providers/Provider';
+import UserProfileAvater from '@components/common/UserProfileAvater';
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState(null);
@@ -42,7 +43,6 @@ const Header = () => {
   const onKeyUp = (e) => {
     e.preventDefault();
     if (e.key === 'Enter') {
-      console.log('Going', searchText);
       navigate('/search', {
         state: {
           searchText
@@ -50,7 +50,7 @@ const Header = () => {
       });
     }
   };
-  
+
   useEffect(() => {
     if (location.pathname === '/') {
       window.addEventListener('scroll', scrollListen);
@@ -145,7 +145,7 @@ const Header = () => {
                 />
                 <input
                   type="text"
-                  placeholder="search by state, zip"
+                  placeholder="Search by state, zip"
                   className={
                     'border rounded-full outline-orange-400 w-full z-50 p-2 px-4 '
                   }
@@ -154,19 +154,9 @@ const Header = () => {
                 />
               </div>
               {isAuthenticated ? (
-                <>
-                  <Link
-                    to="#"
-                    onClick={() => logout()}
-                    className="text-gray-500 mx-2 text-sm border-b-2 pb-1 hover:border-orange-500 hover:text-gray-500 px-0 mx-0 sm:mx-4 capitalize tracking-wide hover:text-orange-500 transition-all">
-                    Logout
-                  </Link>
-                  <Button outlined>
-                    <Link to="/profile">
-                      {user?.name?.split(' ')[0] || 'Profile'}
-                    </Link>
-                  </Button>
-                </>
+                <div className="ml-4">
+                  <UserProfileAvater />
+                </div>
               ) : (
                 <>
                   <Link

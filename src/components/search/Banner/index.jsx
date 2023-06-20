@@ -16,7 +16,7 @@ const Banner = () => {
   const searchBannerData = data.searchBannerData;
 
   return (
-    <div className="bg-white mb-6 md:mb-4">
+    <div className="bg-white">
       <div className="bg-white">
         <div
           className={s.searchBanner}

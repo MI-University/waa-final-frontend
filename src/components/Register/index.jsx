@@ -7,10 +7,12 @@ import { FaEnvelopeOpen, FaLock, FaMobileAlt, FaUser } from 'react-icons/fa';
 import { Form } from '@components/common';
 import { authService } from '@service';
 import { useData } from '@store/providers/Provider';
+import { userType } from '@utils/constants/types.contants';
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [role, setRole] = useState(userType.CUSTOMER);
   const form = useRef(null);
   const navigate = useNavigate();
   const { registrationSuccess } = useData();
@@ -27,6 +29,10 @@ export default function Register() {
         setLoading(false);
         setMessage(error.message);
       });
+  };
+
+  const onRoleChange = (e) => {
+    setRole(e.target.value);
   };
 
   return (
@@ -56,6 +62,28 @@ export default function Register() {
                   placeholder="Password"
                   label="Password"
                 />
+                <div className="flex items-center">
+                  <div className="flex items-center">
+                    <Input
+                      type="radio"
+                      name="role"
+                      value={userType.CUSTOMER}
+                      onChange={onRoleChange}
+                      checked={role == userType.CUSTOMER}
+                    />
+                    User
+                  </div>
+                  <div className="flex items-center">
+                    <Input
+                      type="radio"
+                      name="role"
+                      value={userType.OWNER}
+                      onChange={onRoleChange}
+                      checked={role == userType.OWNER}
+                    />
+                    Seller
+                  </div>
+                </div>
               </div>
 
               {message && (

@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Facebook from '../../assets/icons/facebook.svg';
 import Twitter from '../../assets/icons/twitter.svg';
 import Instagram from '../../assets/icons/instagram.svg';
 import Logo from '../ui/Logo';
 import s from './Layout.module.css';
+import { useLocation } from 'react-router';
 
 const Footer = () => {
+  const [isHome, setIsHome] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setIsHome(true);
+    } else {
+      setIsHome(false);
+    }
+  }, [location]);
+
   return (
-    <div className={s.footerWrapper}>
-      <div className="text-center lg:max-w-screen-xl flex justify-center flex-col w-full mx-auto px-6 sm:px-8 lg:px-16 gridx grid-rows-2 sm:grid-rows-1 grid-flow-row sm:grid-flow-col grid-cols-3 sm:grid-cols-12 gap-4">
+    <div className={s.footerWrapper + (!isHome ? ' !pt-20' : '')}>
+      <div
+        className={
+          'text-center lg:max-w-screen-xl flex justify-center flex-col w-full mx-auto px-6 sm:px-8 lg:px-16 gridx grid-rows-2 sm:grid-rows-1 grid-flow-row sm:grid-flow-col grid-cols-3 sm:grid-cols-12 gap-4'
+        }>
         <div className="row-span-2 sm:col-span-4 col-start-1 col-end-4 sm:col-end-5 flex flex-col items-center ">
           <div
             className=" w-auto mb-6"

@@ -8,8 +8,8 @@ const HomeCardItem = ({ item, isSearchResult }) => {
       <div
         className={
           s.homeCard +
-          ' p-2 lg:p-4 rounded-md bg-white transition-all h-full hover:shadow-lg' +
-          (isSearchResult ? ' shadow-lg' : '')
+          'p-2 lg:p-4 rounded-md bg-white transition-all h-full hover:shadow-lg' +
+          (isSearchResult ? ' shadow-md' : '')
         }>
         <div
           className="mb-2"
