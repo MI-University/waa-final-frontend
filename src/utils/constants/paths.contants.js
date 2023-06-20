@@ -3,6 +3,8 @@ export const paths = {
   LOGIN: '/login',
   REGISTER: '/register',
   SEARCH: '/search',
+  PROPERTIES: '/properties',
+  PROPERTY_DETAILS: '/properties/:id',
   DASHBOARD: '/dashboard',
   MY_PROPERTIES: '/dashboard/my-properties',
   MY_PROPERTY_DETAILS: '/dashboard/my-properties/:id',

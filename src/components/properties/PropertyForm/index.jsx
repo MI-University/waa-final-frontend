@@ -95,7 +95,7 @@ const PropertyForm = () => {
             <div>
               <div className="mb-6">
                 <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
-                  <Input name="name" placeholder="Type name" label="Name" />
+                  <Input name="title" placeholder="Type title" label="Title" />
                   <Input
                     type="number"
                     name="price"
@@ -106,13 +106,13 @@ const PropertyForm = () => {
                 <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
                   <Input
                     type="number"
-                    name="room"
+                    name="noOfBedrooms"
                     placeholder="i.e 3"
                     label="No of Bedrooms"
                   />
                   <Input
                     type="number"
-                    name="bath"
+                    name="noOfBathrooms"
                     placeholder="i.e 2"
                     label="No of Bathrooms"
                   />
@@ -120,15 +120,15 @@ const PropertyForm = () => {
                 <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
                   <Input
                     type="number"
-                    name="kitchen"
-                    placeholder="i.e 2"
-                    label="Kitchens"
+                    name="plotSize"
+                    placeholder="i.e 25000 sqft"
+                    label="Plot size"
                   />
                   <Input
                     type="number"
-                    name="size"
+                    name="area"
                     placeholder="i.e 2000 sqft"
-                    label="Size"
+                    label="area"
                   />
                 </div>
 
@@ -163,7 +163,7 @@ const PropertyForm = () => {
                   {images.map((_, i) => (
                     <div key={i} className="flex items-center">
                       <Input
-                        name="image"
+                        name="images"
                         placeholder="Url"
                         className="w-full flex-grow"
                       />

@@ -75,10 +75,10 @@ const Header = () => {
         }>
         <nav
           className={
-            'max-w-screen-xl px-4 sm:px-8 lg:px-16 mx-auto grid grid-flow-col grid-cols-12 py-3 sm:py-6' +
+            'max-w-screen-xl px-4 sm:px-8 lg:px-16 mx-auto grid grid-flow-col grid-cols-5 lg:grid-cols-12 py-3 sm:py-6' +
             (scrollActive ? ' sm:!py-4' : '')
           }>
-          <ul className="hidden lg:flex col-start-1 col-end-6 text-black-500  items-center">
+          <ul className="hidden lg:flex col-start-1 col-end-6 text-black-500 items-center">
             {nav.map((item, i) => (
               <li
                 key={i}
@@ -92,7 +92,7 @@ const Header = () => {
               </li>
             ))}
           </ul>
-          <div className="col-start-1 lg:col-start-6 col-end-8 flex items-center">
+          <div className="col-start-1 lg:col-start-6 col-end-8 flex items-center justify-center">
             <div
               className={
                 'transition-all duration-500 ' +
@@ -120,7 +120,7 @@ const Header = () => {
           </div>
           <div
             className={
-              'col-start-8 col-end-12 font-medium flex justify-end items-center relative ' +
+              'col-start-8 col-end-13 font-medium flex justify-end items-center relative ' +
               (scrollActive ? 'mt-0' : 'mt-4 lg:mt-0')
             }>
             <div className="relative pl-6 flex items-center">
@@ -134,7 +134,7 @@ const Header = () => {
               </button>
               <div
                 className={
-                  'flex items-center absolute w-60 lg:w-72 transition-all top-16 lg:top-auto right-0 outline-accent ' +
+                  'flex items-center justify-end absolute w-60 lg:w-72 transition-all top-16 lg:top-auto right-0 outline-accent ' +
                   (showSearch
                     ? ' opacity-1 visible '
                     : ' opacity-0 invisible !w-0')

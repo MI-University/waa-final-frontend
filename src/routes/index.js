@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import redirectIfUser from '@utils/redirectIfUser';
 import { paths } from '@utils/constants/paths.contants';
+import checkIsAdmin from '@utils/checkIsAdmin';
 import { RequireAuth } from '@components/ui';
 import Layout from '@components/Layout';
 import AuthLayout from '@components/AuthLayout';
@@ -18,14 +19,16 @@ import MyNewPropertyPage from '@pages/dashboard/my-properties/New';
 import MyPropertyDetailPage from '@pages/dashboard/my-properties/Details';
 import MyPropertyUpdatePage from '@pages/dashboard/my-properties/Update';
 import PendingOwnersPage from '@pages/dashboard/pending-owners';
-import checkIsAdmin from '@utils/checkIsAdmin';
 import MyOffersPage from '@pages/dashboard/my-offers';
+import PropertiesPage from '@pages/properties';
 
 export default (
   <Routes>
     <Route path={paths.BASE} element={<Layout />}>
       <Route index element={<Landing />} />
       <Route path={paths.SEARCH} element={<Search />} />
+      <Route path={paths.PROPERTIES} element={<PropertiesPage />} />
+      <Route path={paths.PROPERTY_DETAILS} element={<MyPropertyDetailPage />} />
     </Route>
     <Route element={<RequireAuth />}>
       <Route element={<DashboardLayout />}>

@@ -4,7 +4,7 @@ const Search = () => {
   return (
     <div>
       <Banner />
-      <Result />
+      <Result searchResult />
     </div>
   );
 };

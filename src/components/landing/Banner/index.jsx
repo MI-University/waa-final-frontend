@@ -17,7 +17,7 @@ const Banner = () => {
 
   return (
     <div className="bg-white mb-12 md:mb-0">
-      <div className="bg-white max-w-screen-xl mt-24 lg:px-8 xl:px-16 mx-auto">
+      <div className="bg-white max-w-screen-xl mt-6 lg:px-8 xl:px-16 mx-auto">
         <ScrollAnimationWrapper>
           <motion.div custom={{ duration: 2 }} variants={scrollAnimation}>
             <div

@@ -46,9 +46,8 @@ export const data = [
   }
 ];
 
-const Result = () => {
+const Result = ({ searchResult = false }) => {
   const location = useLocation();
-  console.log('location state', location);
   const mqlRef = useRef(null);
 
   useEffect(() => {
@@ -68,7 +67,7 @@ const Result = () => {
               }}
               className="flex flex-col justify-center">
               <h1 className="font-bold text-lg text-gray-500 mb-4">
-                Search Result
+                {searchResult ? 'Search Result' : 'Properties'}
               </h1>
             </div>
           </div>
