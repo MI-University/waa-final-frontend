@@ -13,8 +13,6 @@ const UserProfile = ({ onClose }) => {
     redirect('/');
   };
 
-  console.log('user', user);
-
   return (
     <div className="nav-item absolute txet-white right-1 top-16 bg-gray-500 p-8 rounded-lg w-80 shadow-xl shadow-gray-800/10">
       <div className="flex justify-end items-center">

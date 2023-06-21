@@ -7,7 +7,7 @@ const RedirectIfUser = () => {
   //   const navigate = useNavigate();
 
   if (!isAuthenticated) {
-    return false;
+    return true;
   }
 };
 

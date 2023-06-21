@@ -43,7 +43,7 @@ const Service = () => {
     }
   ];
   return (
-    <div id="feature" className="bg-white">
+    <div id="feature" className="bg-white overflow-hidden">
       <Container>
         <div className="grid gap-3 grid-cols-12">
           <div className="col-span-12 lg:col-span-5">

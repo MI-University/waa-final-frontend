@@ -6,11 +6,11 @@ import s from './Layout.module.css';
 
 const Layout = ({ children = null }) => {
   return (
-    <>
+    <div className="header-space">
       <Header />
       <div className={s.content}>{children ? children : <Outlet />}</div>
       <Footer />
-    </>
+    </div>
   );
 };
 

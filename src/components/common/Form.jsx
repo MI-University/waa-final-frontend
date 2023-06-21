@@ -6,20 +6,21 @@ const Form = (props) => {
     const data = {};
     const formData = new FormData(e.target);
     for (const item of formData.entries()) {
-      if (data[item[0]]) {
-        const old = data[item[0]];
-        if (Array.isArray(old)) {
-          data[item[0]].push(...old);
-          data[item[0]].push(item[1]);
+      if (item[0]?.includes('[]')) {
+        const key = item[0]?.replace('[]', '');
+        const oldValue = data[key];
+        if (oldValue) {
+          data[key].push(item[1]);
         } else {
-          data[item[0]] = [];
-          data[item[0]].push(old);
-          data[item[0]].push(item[1]);
+          data[key] = [];
+          data[key].push(item[1]);
         }
       } else {
         data[item[0]] = item[1];
       }
     }
+    console.log(data);
+
     doSubmit(data);
   };
 

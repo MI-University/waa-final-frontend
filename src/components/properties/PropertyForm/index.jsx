@@ -2,6 +2,7 @@ import { Input, Button, Form } from '@components/common';
 import { propertyService } from '@service/';
 import { useData } from '@store/providers/Provider';
 import { userType } from '@utils/constants/types.contants';
+import { isValidUrl } from '@utils/helpers/validation.helpers';
 import React, { useState, useRef, useEffect } from 'react';
 import {
   FaUser,
@@ -24,15 +25,16 @@ const PropertyForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const onFinish = (data) => {
+  const onFinish = (body) => {
     setLoading(true);
     const readyData = {
-      ...data,
+      ...body,
       address: {
-        street: data?.street,
-        zip: data?.zip,
-        city: data?.city,
-        state: data?.state
+        id: data?.address?.id,
+        street: body?.street,
+        zip: body?.zip,
+        city: body?.city,
+        state: body?.state
       }
     };
     if (id) {
@@ -66,6 +68,7 @@ const PropertyForm = () => {
       propertyService.getOne(id).then((resData) => {
         setLoading(false);
         setData(resData);
+        setImages(resData?.images || [Date.now()]);
       });
     }
   };
@@ -75,6 +78,7 @@ const PropertyForm = () => {
       return [...prevImages, Date.now()];
     });
   };
+
   const remove = (index) => {
     if (images.length > 1) {
       setImages((prevImages) => {
@@ -94,13 +98,20 @@ const PropertyForm = () => {
           <Form name="registerForm" doSubmit={onFinish} ref={form}>
             <div>
               <div className="mb-6">
+                <h4 className="mb-4 text-sm font-bold mt-5">Basic Info</h4>
                 <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
-                  <Input name="title" placeholder="Type title" label="Title" />
+                  <Input
+                    name="title"
+                    placeholder="Type title"
+                    label="Title"
+                    defaultValue={data?.title}
+                  />
                   <Input
                     type="number"
                     name="price"
                     placeholder="Type price"
                     label="Price"
+                    defaultValue={data?.price}
                   />
                 </div>
                 <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
@@ -109,12 +120,14 @@ const PropertyForm = () => {
                     name="noOfBedrooms"
                     placeholder="i.e 3"
                     label="No of Bedrooms"
+                    defaultValue={data?.noOfBedrooms}
                   />
                   <Input
                     type="number"
                     name="noOfBathrooms"
                     placeholder="i.e 2"
                     label="No of Bathrooms"
+                    defaultValue={data?.noOfBathrooms}
                   />
                 </div>
                 <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
@@ -123,12 +136,14 @@ const PropertyForm = () => {
                     name="plotSize"
                     placeholder="i.e 25000 sqft"
                     label="Plot size"
+                    defaultValue={data?.plotSize}
                   />
                   <Input
                     type="number"
                     name="area"
                     placeholder="i.e 2000 sqft"
-                    label="area"
+                    label="Area"
+                    defaultValue={data?.area}
                   />
                 </div>
 
@@ -138,34 +153,49 @@ const PropertyForm = () => {
                     name="street"
                     placeholder="Type street"
                     label="Street"
+                    defaultValue={data?.address?.street}
                   />
                   <Input
                     type="number"
                     name="zip"
                     placeholder="Type ZIP"
                     label="ZIP"
+                    defaultValue={data?.address?.zip}
                   />
                 </div>
                 <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
-                  <Input name="city" placeholder="Type city" label="City" />
-                  <Input name="state" placeholder="Type state" label="State" />
+                  <Input
+                    name="city"
+                    placeholder="Type city"
+                    label="City"
+                    defaultValue={data?.address?.city}
+                  />
+                  <Input
+                    name="state"
+                    placeholder="Type state"
+                    label="State"
+                    defaultValue={data?.address?.state}
+                  />
                 </div>
 
                 <h4 className="mb-4 text-sm font-bold mt-5">Description</h4>
                 <div className="grid gap-4 grid-cols-1 mb-4">
                   <textarea
+                    name="description"
                     className="p-4 border outline-accent"
+                    defaultValue={data?.description || ''}
                     placeholder="Type description here..."></textarea>
                 </div>
 
                 <h4 className="mb-4 text-sm font-bold mt-5">Images</h4>
                 <div className="grid gap-0 grid-cols-1">
-                  {images.map((_, i) => (
+                  {images.map((url, i) => (
                     <div key={i} className="flex items-center">
                       <Input
-                        name="images"
+                        name="images[]"
                         placeholder="Url"
                         className="w-full flex-grow"
+                        defaultValue={isValidUrl(url) ? url : ''}
                       />
                       {images.length - 1 === i ? (
                         <button
@@ -190,8 +220,10 @@ const PropertyForm = () => {
               {message?.text && (
                 <p
                   className={
-                    'text-sm pb-2 ' +
-                    (message?.success ? 'text-green-500' : 'text-red-500')
+                    'text-sm py-2 mb-4 px-4 rounded shadow-sm shadow-gray-200 ' +
+                    (message?.success
+                      ? 'text-green-500 bg-green-100'
+                      : 'text-red-500 bg-red-100')
                   }>
                   {message?.text}
                 </p>
@@ -201,7 +233,7 @@ const PropertyForm = () => {
                 htmlType="submit"
                 className=""
                 loading={loading}>
-                Create
+                {id ? 'Update' : 'Create'}
               </Button>
             </div>
           </Form>

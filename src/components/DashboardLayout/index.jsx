@@ -9,11 +9,11 @@ import s from './DashboardLayout.module.css';
 const DashboardLayout = () => {
   const { logout, user } = useData();
   const nav = navItems[user.role];
+  const isApproved = user?.approved;
   const onLogout = async () => {
     logout();
     redirect('/');
   };
-  console.log(nav, navItems, user.role);
   return (
     <div className="h-screen">
       <div className="grid grid-cols-10 h-full">
@@ -29,13 +29,22 @@ const DashboardLayout = () => {
                 <Logo orientation="v" />
               </div>
               <ul className="text-gray-400">
-                {nav?.map((item) => (
+                {isApproved ? (
+                  nav?.map((item) => (
+                    <li className="py-2 px-2 mb-4 hover:text-white border-b-4 hover:!border-orange-300 border-gray-600">
+                      <Link to={item.link} className="flex items-center">
+                        <span className="mr-2"> {item.icon}</span> {item.name}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
                   <li className="py-2 px-2 mb-4 hover:text-white border-b-4 hover:!border-orange-300 border-gray-600">
-                    <Link to={item.link} className="flex items-center">
-                      <span className="mr-2"> {item.icon}</span> {item.name}
+                    <Link to={nav[0]?.link} className="flex items-center">
+                      <span className="mr-2"> {nav[0]?.icon}</span>{' '}
+                      {nav[0]?.name}
                     </Link>
                   </li>
-                ))}
+                )}
               </ul>
             </div>
             <div className="flex flex-col items-center">

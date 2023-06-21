@@ -37,7 +37,7 @@ const addOne = (data) => {
 };
 
 const updateOne = (id, data) => {
-  return API.post(`${PATH}/${id}`, data)
+  return API.put(`${PATH}/${id}`, data)
     .then((res) => {
       return res.data?.data;
     })

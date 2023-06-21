@@ -1,6 +1,6 @@
 import { FaStarHalfAlt, FaStar } from 'react-icons/fa';
 
-const Rating = ({ value }) => {
+const Rating = ({ value = 5 }) => {
   const roundedValue = Math.ceil(value);
   const half = Boolean(roundedValue - value);
   const stars = Array.from(new Array(roundedValue));

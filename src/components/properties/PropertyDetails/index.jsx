@@ -1,21 +1,57 @@
-import { EmptyPanel, Loader } from '@components/ui';
+import { Button } from '@components/common';
+import { Container, EmptyPanel, Loader } from '@components/ui';
 import { propertyService } from '@service/';
+import { useData } from '@store/providers/Provider';
+import { userType } from '@utils/constants/types.contants';
 import React, { useState, useEffect } from 'react';
-import { FaMapMarker, FaMapMarkerAlt, FaMapPin } from 'react-icons/fa';
+import {
+  FaBath,
+  FaBed,
+  FaChartArea,
+  FaCreativeCommonsZero,
+  FaMap,
+  FaMapMarker,
+  FaMapMarkerAlt,
+  FaMapPin,
+  FaRestroom,
+  FaSeedling,
+  FaShare,
+  FaShareAlt,
+  FaShareAltSquare,
+  FaShareSquare,
+  FaSplotch
+} from 'react-icons/fa';
+import {
+  MdAirlines,
+  MdAttachEmail,
+  MdEmail,
+  MdFormatSize,
+  MdOutlineAlignVerticalTop,
+  MdOutlineAttachEmail,
+  MdOutlineMessage,
+  MdOutlineSend,
+  MdSend,
+  MdShare
+} from 'react-icons/md';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import s from './PropertyDetails.module.css';
 
-const PropertyDetails = () => {
+const PropertyDetails = ({ forSeller = false }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(null);
+  const [currentImage, setCurrentImage] = useState('');
   const params = useParams();
+  const { isAuthenticated, user } = useData();
+  const isOwner = user?.role === userType.OWNER;
 
   const getDetails = () => {
     if (params.id) {
       setLoading(true);
-      propertyService.getOne(params.id).then((res) => {
+      propertyService.getOne(params.id).then((data) => {
         setLoading(false);
-        setData(res.data);
+        setData(data);
+        setCurrentImage(data?.images?.[0] || '');
       });
     }
   };
@@ -25,54 +61,152 @@ const PropertyDetails = () => {
   }, [params.id]);
 
   return (
-    <div className="">
+    <div className={forSeller ? 'seller-p-details' : ''}>
       <div>
         {loading ? (
           <Loader />
-        ) : data ? (
+        ) : !data ? (
           <EmptyPanel />
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 py-6">
-            <div className="col-span-1">
-              <div className="grid grid-cols-4">
-                <div className="col-span-4">
-                  <img src={data?.images[0]} alt={data?.title} />
+          <>
+            <div className="bg-gray-100/50 bg">
+              <Container>
+                <div className="grid gap-20 grid-cols-1 lg:grid-cols-2 py-20">
+                  <div className="col-span-1 bg-white">
+                    <div className="grid grid-cols-4 gap-4 p-4 bg-white rounded-md shadow">
+                      <div className="col-span-4">
+                        <img
+                          src={currentImage}
+                          alt={data?.title}
+                          className="w-full h-[400px] object-cover bg-gray-200 overflow-hidden border-gray-400"
+                        />
+                      </div>
+                      <div className="col-span-4 grid gap-4 grid-cols-4">
+                        {data?.images?.map((imageUrl) => (
+                          <img
+                            src={imageUrl}
+                            alt={data?.title}
+                            className="w-full h-28 bg-gray-200 object-cover cursor-pointer"
+                            onClick={() => setCurrentImage(imageUrl)}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-span-1">
+                    <div className="mt-4">
+                      <span className={data?.status?.toLowerCase()}>
+                        {data?.status}
+                      </span>
+                    </div>
+                    <h2 className="text-4xl font-bold text-gray-600 my-6">
+                      {data?.title}
+                    </h2>
+                    <div className="mb-4 flex items-baseline text-gray-400">
+                      <FaMapMarkerAlt className="mr-2 pt-1 h-5 w-5" />{' '}
+                      <div className="mb-1">
+                        {data?.address?.street},
+                        <div>
+                          {data?.address?.city}, {data?.address?.zip},{' '}
+                          {data?.address?.state}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-end my-12 mt-8">
+                      <span className="inline-block text-lg pb-[2px] text-gray-500">
+                        $
+                      </span>
+                      <h1 className="text-5xl px-2 font-bold text-accent">
+                        {data?.price || '00'}
+                        <span className="text-sm text-gray-400">.00</span>
+                      </h1>
+                    </div>
+                    <div className="mb-4">
+                      <ul className="flex items-center flex-wrap">
+                        {data?.noOfBedrooms && (
+                          <li className="flex mb-2 items-center text-gray-400 text-sm px-2 pr-4 leading-none border-r-2 border-gray-300">
+                            <FaBed className="mr-2 text-lg text-gray-400" />
+                            Bedrooms{' '}
+                            <span className="ml-2 font-bold text-gray-800">
+                              {data?.noOfBedrooms}
+                            </span>
+                          </li>
+                        )}
+                        {data?.noOfBathrooms && (
+                          <li className="flex mb-2 items-center text-gray-400 text-sm px-2 pr-4 leading-none border-r-2 border-gray-300">
+                            <FaBath className="mr-2 text-lg text-gray-400" />
+                            Bathrooms{' '}
+                            <span className="ml-2 font-bold text-gray-800">
+                              {data?.noOfBathrooms}
+                            </span>
+                          </li>
+                        )}
+                        {data?.plotSize && (
+                          <li className="flex mb-2 items-center text-gray-400 text-sm px-2 pr-4 leading-none border-r-2 border-gray-300">
+                            <FaMap className="mr-2 text-lg text-gray-400" />
+                            Plot size{' '}
+                            <span className="ml-2 font-bold text-gray-800">
+                              {data?.plotSize}
+                            </span>
+                          </li>
+                        )}
+
+                        {data?.area && (
+                          <li className="flex mb-2 items-center text-gray-400 text-sm px-2 pr-4 leading-none border-r-2 border-gray-300">
+                            <FaChartArea className="mr-2 text-lg text-gray-400" />
+                            Area{' '}
+                            <span className="ml-2 font-bold text-gray-800">
+                              {data?.area}
+                            </span>
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+                    {forSeller ? (
+                      <></>
+                    ) : (
+                      isAuthenticated &&
+                      !isOwner && (
+                        <div className="mb-4 flex items-center mt-8">
+                          <Button
+                            outlined
+                            className="mr-4 bg-accent text-white">
+                            Send Offer
+                          </Button>
+                          <Button outlined className="flex items-center !px-5">
+                            <MdOutlineMessage className="text-accent text-sm mr-2" />
+                            <span>Send Message</span>
+                          </Button>
+                        </div>
+                      )
+                    )}
+                  </div>
                 </div>
-                <div className="col-span-4 grid gap-2 grid-cols-4">
-                  {data?.images?.map((imageUrl) => (
-                    <img src={imageUrl} alt={data?.title} />
-                  ))}
+              </Container>
+            </div>
+
+            <div className="py-12 min-h-[300px]">
+              <Container>
+                <div className="col-span-2x">
+                  <h2 className="text-2xl font-bold text-gray-600 mb-6">
+                    Description
+                  </h2>
+                  <div>
+                    {data?.description ? (
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: data?.description || ''
+                        }}
+                      />
+                    ) : (
+                      <span className="text-gray-400">No description</span>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Container>
             </div>
-            <div className="col-span-1">
-              <h4>{data?.name}</h4>
-              <div className="flex items-end mb-4">
-                <span className="inline-block text-lg pb-[2px] text-gray-500">
-                  $
-                </span>
-                <h1 className="text-4xl font-bold">{data?.price || '00.00'}</h1>
-              </div>
-              <div className="mb-4">
-                <ul className="flex items-center">
-                  {data?.size && (
-                    <li className="px-4 border-r-2 border-gray-300">
-                      {data?.size}
-                    </li>
-                  )}
-                  {data?.size && (
-                    <li className="px-4 border-r-2 border-gray-300">
-                      {data?.size}
-                    </li>
-                  )}
-                </ul>
-              </div>
-              <div className="mb-4">
-                <FaMapMarkerAlt /> {data?.address}
-              </div>
-            </div>
-            <div className="col-span-2"></div>
-          </div>
+          </>
         )}
       </div>
     </div>

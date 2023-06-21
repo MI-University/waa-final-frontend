@@ -75,7 +75,7 @@ const Header = () => {
         }>
         <nav
           className={
-            'max-w-screen-xl px-4 sm:px-8 lg:px-16 mx-auto grid grid-flow-col grid-cols-5 lg:grid-cols-12 py-3 sm:py-6' +
+            'max-w-screen-xl px-4 sm:px-8 lg:px-16 mx-auto grid grid-flow-col lg:grid-cols-12 py-3 sm:py-6' +
             (scrollActive ? ' sm:!py-4' : '')
           }>
           <ul className="hidden lg:flex col-start-1 col-end-6 text-black-500 items-center">
@@ -92,7 +92,7 @@ const Header = () => {
               </li>
             ))}
           </ul>
-          <div className="col-start-1 lg:col-start-6 col-end-8 flex items-center justify-center">
+          <div className="lg:col-start-6 lg:col-end-8 col-start-1 col-end-4  flex items-center lg:justify-center">
             <div
               className={
                 'transition-all duration-500 ' +
@@ -120,13 +120,13 @@ const Header = () => {
           </div>
           <div
             className={
-              'col-start-8 col-end-13 font-medium flex justify-end items-center relative ' +
+              'lg:col-start-8 lg:col-end-13 col-start-4 col-end-12 font-medium flex justify-end items-center relative ' +
               (scrollActive ? 'mt-0' : 'mt-4 lg:mt-0')
             }>
             <div className="relative pl-6 flex items-center">
               <button
                 className={
-                  'p-2 py-4 mr-0 text-orange-400 absolute left-0' +
+                  'p-2 py-4 mr-0 text-orange-400 absolute outline-none left-0' +
                   (showSearch ? ' left--12' : '')
                 }
                 onClick={() => seShowSearch(!showSearch)}>

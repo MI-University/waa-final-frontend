@@ -1,11 +1,12 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import Slider, { Settings } from 'react-slick';
-import { HomeCardItem } from '@components/homes';
 import { FaAngleRight, FaAngleLeft, FaArrowRight } from 'react-icons/fa';
 import Container from '@components/ui/Container';
 import ImgHome1 from '../../../assets/images/home-6.png';
 import ImgHome2 from '../../../assets/images/home-7.png';
 import { Link } from 'react-router-dom';
+import { PropertyCard } from '@components/properties';
+import { propertyService } from '@service/';
 
 const SliderArrow = (props) => {
   const { onClick, type, className } = props;
@@ -25,46 +26,22 @@ const SliderArrow = (props) => {
   );
 };
 
-export const data = [
-  {
-    id: 1,
-    cover: ImgHome1,
-    title: '1039 Milson Ln, Nolensville, TN 37135',
-    rating: 5,
-    ratingCount: 8,
-    price: 25000000,
-    category: 'Beginner'
-  },
-  {
-    id: 2,
-    cover: ImgHome2,
-    title: '1039 Milson Ln, Nolensville, TN 37135',
-    rating: 5,
-    ratingCount: 15,
-    price: 20000000,
-    category: 'Intermediate'
-  },
-  {
-    id: 3,
-    cover: ImgHome1,
-    title: '1039 Milson Ln, Nolensville, TN 37135',
-    rating: 4,
-    ratingCount: 7,
-    price: 30000000,
-    category: 'Beginner'
-  },
-  {
-    id: 4,
-    cover: ImgHome2,
-    title: '1039 Milson Ln, Nolensville, TN 37135',
-    rating: 4,
-    ratingCount: 12,
-    price: 30000000,
-    category: 'Intermediate'
-  }
-];
 const PopularHomes = () => {
+  const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false);
   const mqlRef = useRef(null);
+
+  const getAll = () => {
+    setLoading(true);
+    propertyService.getAll().then((data) => {
+      setLoading(false);
+      setList(data);
+    });
+  };
+
+  useEffect(() => {
+    getAll();
+  }, []);
 
   useEffect(() => {
     mqlRef.current = window.matchMedia('(max-width: 600px)');
@@ -123,8 +100,8 @@ const PopularHomes = () => {
 
           <div className="col-span-12 lg:col-span-9">
             <Slider {...sliderConfig}>
-              {data.map((item) => (
-                <HomeCardItem key={String(item.id)} item={item} />
+              {list?.slice(0, 8)?.map((item) => (
+                <PropertyCard key={String(item.id)} item={item} />
               ))}
             </Slider>
           </div>

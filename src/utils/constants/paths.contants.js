@@ -12,5 +12,6 @@ export const paths = {
   MY_PROPERTY_UPDATE: '/dashboard/my-properties/:id/update',
   PENDING_OWNERS: '/dashboard/pending-owners',
   MY_OFFERS: '/dashboard/my-offers',
+  MY_SAVED_PROPERTIES: '/dashboard/my-saved-properties',
   ALL: '*'
 };

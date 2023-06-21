@@ -1,5 +1,8 @@
-body {
-  padding-top: 74px;
+.header-space {
+  padding-top: 62px;
+  @screen sm {
+    padding-top: 74px;
+  }
 }
 
 .slick-dots {
@@ -98,5 +101,107 @@ input[type='radio']:focus {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.appear-actions {
+  position: relative;
+  & .action-container {
+    @apply absolute right-4 overflow-hidden top-4 flex flex-col;
+    & .delete,
+    & .edit {
+      @apply p-2 h-8 text-xs w-8 mx-2 mt-2 flex justify-center items-center bg-green-500 text-white rounded-full shadow;
+      transform: translateX(calc(100% + 1rem));
+    }
+    & .delete {
+      @apply bg-red-400 transition-all duration-500;
+    }
+    & .edit {
+      @apply bg-green-500 transition-all duration-300;
+    }
+  }
+
+  &:hover .delete {
+    transform: translateX(0);
+  }
+  &:hover .edit {
+    transform: translateX(0);
+  }
+}
+
+.seller-p-details {
+  & .bg {
+    @apply bg-white;
+  }
+
+  & .py-20 {
+    @apply py-0;
+  }
+
+  & .px-4 {
+    @apply px-0;
+  }
+
+  & .gap-20 {
+    @apply gap-8;
+  }
+
+  & .text-4xl {
+    @apply text-2xl;
+  }
+}
+
+.available {
+  @apply px-4 py-1 inline-block bg-green-500 text-sm rounded text-white;
+}
+
+.unavailable {
+  @apply px-4 py-1 inline-block bg-gray-400 text-sm rounded text-white;
+}
+
+.pending {
+  @apply px-4 py-1 inline-block bg-yellow-400 text-sm text-white rounded;
+}
+
+.contingent {
+  @apply px-4 py-1 inline-block bg-cyan-500 text-sm text-white rounded;
+}
+
+.sold {
+  @apply px-4 py-1 inline-block bg-blue-400 text-sm text-white rounded;
+}
+
+.available-txt {
+  @apply py-1 flex text-xs items-center text-gray-400 text-sm rounded;
+  & svg {
+    @apply text-green-300;
+  }
+}
+
+.unavailable-txt {
+  @apply py-1 flex text-xs items-center text-gray-400 text-sm rounded;
+  & svg {
+    @apply text-gray-300;
+  }
+}
+
+.pending-txt {
+  @apply py-1 flex text-xs items-center text-gray-400 text-sm rounded;
+  & svg {
+    @apply text-yellow-300;
+  }
+}
+
+.contingent-txt {
+  @apply py-1 flex text-xs items-center text-gray-400 text-sm rounded;
+  & svg {
+    @apply text-cyan-300;
+  }
+}
+
+.sold-txt {
+  @apply py-1 flex text-xs items-center text-gray-400 text-sm rounded;
+  & svg {
+    @apply text-blue-300;
   }
 }

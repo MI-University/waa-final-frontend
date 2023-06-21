@@ -1,0 +1,15 @@
+.homeCard {
+  background: white;
+  &:hover button {
+    @apply bg-accent text-white shadow-lg transition-all duration-300;
+  }
+}
+
+.cardImgArea {
+  & img {
+    @apply transition-all duration-500;
+  }
+  &:hover img {
+    transform: scale(1.1) rotate(1deg);
+  }
+}

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 
 import redirectIfUser from '@utils/redirectIfUser';
 import { paths } from '@utils/constants/paths.contants';
-import checkIsAdmin from '@utils/checkIsAdmin';
-import { RequireAuth } from '@components/ui';
+import { RequireAdmin, RequireAuth, RequireOwner } from '@components/ui';
 import Layout from '@components/Layout';
 import AuthLayout from '@components/AuthLayout';
 import DashboardLayout from '@components/DashboardLayout';
@@ -21,6 +20,8 @@ import MyPropertyUpdatePage from '@pages/dashboard/my-properties/Update';
 import PendingOwnersPage from '@pages/dashboard/pending-owners';
 import MyOffersPage from '@pages/dashboard/my-offers';
 import PropertiesPage from '@pages/properties';
+import PropertyDetailPage from '@pages/properties/Details';
+import MySavedPropertiesPage from '@pages/dashboard/my-saved-properties';
 
 export default (
   <Routes>
@@ -28,43 +29,27 @@ export default (
       <Route index element={<Landing />} />
       <Route path={paths.SEARCH} element={<Search />} />
       <Route path={paths.PROPERTIES} element={<PropertiesPage />} />
-      <Route path={paths.PROPERTY_DETAILS} element={<MyPropertyDetailPage />} />
+      <Route path={paths.PROPERTY_DETAILS} element={<PropertyDetailPage />} />
     </Route>
     <Route element={<RequireAuth />}>
       <Route element={<DashboardLayout />}>
         <Route path={paths.DASHBOARD} element={<DashboardPage />} />
-        <Route path={paths.MY_PROPERTIES} element={<MyPropertiesPage />} />
-        <Route
-          path={paths.MY_PROPERTY_DETAILS}
-          element={<MyPropertyDetailPage />}
-        />
-        <Route
-          path={paths.MY_PROPERTY_CREATE}
-          element={<MyNewPropertyPage />}
-        />
-        <Route
-          path={paths.MY_PROPERTY_UPDATE}
-          element={<MyPropertyUpdatePage />}
-        />
-        <Route
-          path={paths.PENDING_OWNERS}
-          element={<PendingOwnersPage />}
-          loader={checkIsAdmin}
-        />
         <Route path={paths.MY_OFFERS} element={<MyOffersPage />} />
+        <Route path={paths.MY_SAVED_PROPERTIES} element={<MySavedPropertiesPage />} />
+        <Route path={paths.PENDING_OWNERS} element={<RequireAdmin />}>
+          <Route index element={<PendingOwnersPage />} />
+        </Route>
+        <Route element={<RequireOwner />}>
+          <Route path={paths.MY_PROPERTIES} element={<MyPropertiesPage />} />
+          <Route path={paths.MY_PROPERTY_DETAILS} element={<MyPropertyDetailPage />} />
+          <Route path={paths.MY_PROPERTY_CREATE} element={<MyNewPropertyPage />} />
+          <Route path={paths.MY_PROPERTY_UPDATE} element={<MyPropertyUpdatePage />} />
+        </Route>
       </Route>
     </Route>
     <Route element={<AuthLayout />}>
-      <Route
-        path={paths.REGISTER}
-        element={<RegisterPage />}
-        loader={redirectIfUser}
-      />
-      <Route
-        path={paths.LOGIN}
-        element={<LoginPage />}
-        loader={redirectIfUser}
-      />
+      <Route path={paths.REGISTER} element={<RegisterPage />} loader={redirectIfUser} />
+      <Route path={paths.LOGIN} element={<LoginPage />} loader={redirectIfUser} />
     </Route>
     <Route path={paths.ALL} element={<Missing />} />
   </Routes>

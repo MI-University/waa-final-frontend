@@ -16,6 +16,14 @@ export const emailValidate = (email) => {
   }
 };
 
+export const isValidUrl = (urlString) => {
+  try {
+    return Boolean(new URL(urlString));
+  } catch (e) {
+    return false;
+  }
+};
+
 export function formatMobile(mobileNumber = '') {
   let newN = mobileNumber?.startsWith('88')
     ? mobileNumber?.slice(2)
