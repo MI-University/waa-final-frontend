@@ -4,7 +4,7 @@ import ServerIcon from '../assets/icons/bx_bxs-server.svg';
 import { userType } from '@utils/constants/types.contants';
 import { FaHome, FaRegListAlt } from 'react-icons/fa';
 import { paths } from '@utils/constants/paths.contants';
-import { MdListAlt, MdOfflineShare, MdStar } from 'react-icons/md';
+import { MdListAlt, MdMessage, MdOfflineShare, MdStar } from 'react-icons/md';
 
 export const bannerStatistics = [
   {
@@ -52,6 +52,11 @@ export const navItems = {
       name: 'Property Offers',
       link: paths.MY_OFFERS,
       icon: <MdOfflineShare />
+    },
+    {
+      name: 'Messages',
+      link: paths.MY_MESSAGES,
+      icon: <MdMessage />
     }
   ],
   [userType.CUSTOMER]: [
@@ -64,6 +69,11 @@ export const navItems = {
       name: 'My Offers',
       link: paths.MY_OFFERS,
       icon: <MdOfflineShare />
+    },
+    {
+      name: 'Messages',
+      link: paths.MY_MESSAGES,
+      icon: <MdMessage />
     },
     {
       name: 'Saved',

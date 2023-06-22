@@ -5,3 +5,4 @@ export { default as EmptyPanel } from './EmptyPanel';
 export { default as RequireAuth } from './RequireAuth';
 export { default as RequireOwner } from './RequireOwner';
 export { default as RequireAdmin } from './RequireAdmin';
+export { default as ModalWrapper } from './ModalWrapper';

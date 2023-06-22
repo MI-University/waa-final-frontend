@@ -184,6 +184,7 @@ const PropertyForm = () => {
                     name="description"
                     className="p-4 border outline-accent"
                     defaultValue={data?.description || ''}
+                    rows={5}
                     placeholder="Type description here..."></textarea>
                 </div>
 

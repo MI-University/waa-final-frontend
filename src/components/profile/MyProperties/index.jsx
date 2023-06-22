@@ -30,7 +30,7 @@ const MyProperties = ({ forSeller = false }) => {
         <div className="flex justify-end">
           <Link
             to="/dashboard/my-properties/new"
-            className="flex items-center border px-3 py-2 pr-4 font-bold text-gray-500 text-sm rounded border-gray-200">
+            className="flex items-center border px-3 py-2 pr-4 font-bold text-gray-500 text-sm rounded border-green-500/50">
             <FaPlus className="text-green-500 mr-2 text-sm" /> Add new
           </Link>
         </div>

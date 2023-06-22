@@ -31,14 +31,14 @@ const DashboardLayout = () => {
               <ul className="text-gray-400">
                 {isApproved ? (
                   nav?.map((item) => (
-                    <li className="py-2 px-2 mb-4 hover:text-white border-b-4 hover:!border-orange-300 border-gray-600">
+                    <li className="py-2 px-2 mb-4 hover:text-white border-b-4 hover:!border-orange-400/80 border-gray-600">
                       <Link to={item.link} className="flex items-center">
                         <span className="mr-2"> {item.icon}</span> {item.name}
                       </Link>
                     </li>
                   ))
                 ) : (
-                  <li className="py-2 px-2 mb-4 hover:text-white border-b-4 hover:!border-orange-300 border-gray-600">
+                  <li className="py-2 px-2 mb-4 hover:text-white border-b-4 hover:!border-orange-400/80 border-gray-600">
                     <Link to={nav[0]?.link} className="flex items-center">
                       <span className="mr-2"> {nav[0]?.icon}</span>{' '}
                       {nav[0]?.name}

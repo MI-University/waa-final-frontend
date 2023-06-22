@@ -10,7 +10,7 @@ export const apiDomains = {
   AUTH: '/auth',
   PROPERTY: '/properties',
   OWNER: '/users',
-  OFFER: '/offers',
+  OFFER: '/users/offers',
   MESSAGE: '/messages'
 };
 

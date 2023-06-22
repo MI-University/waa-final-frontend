@@ -1,10 +1,8 @@
 import { Button } from '@components/common';
-import { OfferForm } from '@components/offer';
 import { Container, EmptyPanel, Loader } from '@components/ui';
 import { propertyService } from '@service/';
 import { useData } from '@store/providers/Provider';
-import { paths } from '@utils/constants/paths.contants';
-import { propertyStatus, userType } from '@utils/constants/types.contants';
+import { userType } from '@utils/constants/types.contants';
 import React, { useState, useEffect } from 'react';
 import {
   FaBath,
@@ -14,18 +12,16 @@ import {
   FaMapMarkerAlt
 } from 'react-icons/fa';
 import { MdOutlineMessage } from 'react-icons/md';
-import { Navigate, useParams } from 'react-router';
-import { useNavigate } from 'react-router-dom';
-import s from './PropertyDetails.module.css';
+import { useParams } from 'react-router';
+import s from './OfferDetails.module.css';
 
-const PropertyDetails = ({ forSeller = false }) => {
+const OfferDetails = ({ forSeller = false }) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(null);
   const [currentImage, setCurrentImage] = useState('');
   const params = useParams();
-  const { isAuthenticated, user, openModal, setModalContent } = useData();
+  const { isAuthenticated, user } = useData();
   const isOwner = user?.role === userType.OWNER;
-  const navigate = useNavigate();
 
   const getDetails = () => {
     if (params.id) {
@@ -38,18 +34,7 @@ const PropertyDetails = ({ forSeller = false }) => {
     }
   };
 
-  const sendOffer = () => {
-    setModalContent(<OfferForm data={data} />);
-    openModal();
-  };
-
-  const sendMessage = () => {
-    if (isAuthenticated) {
-      navigate(`${paths.MY_MESSAGES}/${data?.id}`);
-    } else {
-      navigate('/login');
-    }
-  };
+  const sendOffer = () => {};
 
   useEffect(() => {
     getDetails();
@@ -164,19 +149,13 @@ const PropertyDetails = ({ forSeller = false }) => {
                       isAuthenticated &&
                       !isOwner && (
                         <div className="mb-4 flex items-center mt-8">
-                          {data?.status !== propertyStatus.CONTINGENT &&
-                            data?.status !== propertyStatus.SOLD && (
-                              <Button
-                                outlined
-                                className="mr-4 bg-accent text-white"
-                                onClick={sendOffer}>
-                                Send Offer
-                              </Button>
-                            )}
                           <Button
                             outlined
-                            className="flex items-center !px-5"
-                            onClick={sendMessage}>
+                            className="mr-4 bg-accent text-white"
+                            onClick={sendOffer}>
+                            Send Offer
+                          </Button>
+                          <Button outlined className="flex items-center !px-5">
                             <MdOutlineMessage className="text-accent text-sm mr-2" />
                             <span>Send Message</span>
                           </Button>
@@ -188,7 +167,7 @@ const PropertyDetails = ({ forSeller = false }) => {
               </Container>
             </div>
 
-            <div className="py-12 min-h-[300px]">
+            {/* <div className="py-12 min-h-[300px]">
               <Container>
                 <div className="col-span-2x">
                   <h2 className="text-2xl font-bold text-gray-600 mb-6">
@@ -207,7 +186,7 @@ const PropertyDetails = ({ forSeller = false }) => {
                   </div>
                 </div>
               </Container>
-            </div>
+            </div> */}
           </>
         )}
       </div>
@@ -215,4 +194,4 @@ const PropertyDetails = ({ forSeller = false }) => {
   );
 };
 
-export default PropertyDetails;
+export default OfferDetails;

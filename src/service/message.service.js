@@ -6,7 +6,7 @@ const PATH = apiDomains.MESSAGE;
 const getAll = () => {
   return API.get(`${PATH}`)
     .then((res) => {
-      return res.data;
+      return res.data?.data;
     })
     .catch((error) => {
       console.error(error);
@@ -14,10 +14,10 @@ const getAll = () => {
     });
 };
 
-const accept = (id) => {
-  return API.put(`${PATH}/${id}`, { active: true })
+const send = (body) => {
+  return API.post(`${PATH}`, body)
     .then((res) => {
-      return res.data;
+      return res.data?.data;
     })
     .catch((error) => {
       console.error(error);
@@ -25,4 +25,4 @@ const accept = (id) => {
     });
 };
 
-export { getAll, accept };
+export { getAll, send };

@@ -3,6 +3,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import authSlice from './slices/auth.slice';
 import propertySlice from './slices/property.slice';
+import modalSlice from './slices/modal.slice';
 
 const persistConfig = {
   key: 'root',
@@ -10,7 +11,8 @@ const persistConfig = {
 };
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
-  property: propertySlice.reducer
+  property: propertySlice.reducer,
+  modal: modalSlice.reducer
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -25,5 +27,6 @@ export const store = configureStore({
 
 export const authActions = authSlice.actions;
 export const propertyActions = propertySlice.actions;
+export const modalActions = modalSlice.actions;
 
 export const persistor = persistStore(store);

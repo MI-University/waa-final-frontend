@@ -22,6 +22,8 @@ import MyOffersPage from '@pages/dashboard/my-offers';
 import PropertiesPage from '@pages/properties';
 import PropertyDetailPage from '@pages/properties/Details';
 import MySavedPropertiesPage from '@pages/dashboard/my-saved-properties';
+import MyMessagesPage from '@pages/dashboard/my-messages';
+import { MyMessageDetails } from '@components/profile';
 
 export default (
   <Routes>
@@ -35,21 +37,48 @@ export default (
       <Route element={<DashboardLayout />}>
         <Route path={paths.DASHBOARD} element={<DashboardPage />} />
         <Route path={paths.MY_OFFERS} element={<MyOffersPage />} />
-        <Route path={paths.MY_SAVED_PROPERTIES} element={<MySavedPropertiesPage />} />
+        <Route path={paths.MY_MESSAGES} element={<MyMessagesPage />} />
+        <Route
+          path={paths.MY_SAVED_PROPERTIES}
+          element={<MySavedPropertiesPage />}
+        />
         <Route path={paths.PENDING_OWNERS} element={<RequireAdmin />}>
           <Route index element={<PendingOwnersPage />} />
         </Route>
+        <Route path={paths.MY_MESSAGES} element={<MyMessagesPage />}>
+          <Route
+            path={paths.MY_MESSAGE_DETAILS}
+            element={<MyMessageDetails />}
+          />
+        </Route>
         <Route element={<RequireOwner />}>
           <Route path={paths.MY_PROPERTIES} element={<MyPropertiesPage />} />
-          <Route path={paths.MY_PROPERTY_DETAILS} element={<MyPropertyDetailPage />} />
-          <Route path={paths.MY_PROPERTY_CREATE} element={<MyNewPropertyPage />} />
-          <Route path={paths.MY_PROPERTY_UPDATE} element={<MyPropertyUpdatePage />} />
+          <Route
+            path={paths.MY_PROPERTY_DETAILS}
+            element={<MyPropertyDetailPage />}
+          />
+          <Route
+            path={paths.MY_PROPERTY_CREATE}
+            element={<MyNewPropertyPage />}
+          />
+          <Route
+            path={paths.MY_PROPERTY_UPDATE}
+            element={<MyPropertyUpdatePage />}
+          />
         </Route>
       </Route>
     </Route>
     <Route element={<AuthLayout />}>
-      <Route path={paths.REGISTER} element={<RegisterPage />} loader={redirectIfUser} />
-      <Route path={paths.LOGIN} element={<LoginPage />} loader={redirectIfUser} />
+      <Route
+        path={paths.REGISTER}
+        element={<RegisterPage />}
+        loader={redirectIfUser}
+      />
+      <Route
+        path={paths.LOGIN}
+        element={<LoginPage />}
+        loader={redirectIfUser}
+      />
     </Route>
     <Route path={paths.ALL} element={<Missing />} />
   </Routes>

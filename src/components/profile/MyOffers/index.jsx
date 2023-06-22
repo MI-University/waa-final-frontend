@@ -3,7 +3,11 @@ import { Empty } from '@components/ui/icons';
 import { offerService } from '@service/';
 import { ownerService } from '@service/';
 import { useData } from '@store/providers/Provider';
-import { userType } from '@utils/constants/types.contants';
+import {
+  offerStatus,
+  propertyStatus,
+  userType
+} from '@utils/constants/types.contants';
 import { useEffect, useState } from 'react';
 import { FaCheck, FaPlus, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -22,22 +26,33 @@ const MyOffers = () => {
     });
   };
 
-  const acceptRequest = (id) => {
+  const acceptOffer = (id) => {
     setLoading(true);
-    ownerService
-      .accept(id)
-      .then(() => {
-        setLoading(false);
-        getAll();
-      })
-      .catch((error) => {
-        setLoading(false);
-      });
+    if (user?.role === userType.OWNER)
+      offerService
+        .acceptByOwner(id)
+        .then(() => {
+          setLoading(false);
+          getAll();
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
+    else
+      offerService
+        .acceptByCustomer(id)
+        .then(() => {
+          setLoading(false);
+          getAll();
+        })
+        .catch((error) => {
+          setLoading(false);
+        });
   };
 
-  const cancelApproval = (id) => {
+  const cancelOffer = (id) => {
     setLoading(true);
-    ownerService
+    offerService
       .cancel(id)
       .then(() => {
         setLoading(false);
@@ -66,7 +81,7 @@ const MyOffers = () => {
                 Property
               </div>
               <div className="p-2 px-6 font-bold  py-3 text-sm text-gray-500">
-                Customer
+                Offer Amount
               </div>
               <div className="p-2 px-6 font-bold  py-3 text-sm text-gray-500">
                 Status
@@ -79,36 +94,40 @@ const MyOffers = () => {
               return (
                 <div className="grid grid-cols-4 gap-4 [&:nth-child(2n)]:bg-gray-100">
                   <div className="p-2 px-6  py-3 text-sm flex items-center">
-                    {data.name || '-'}
+                    {data.property?.title || '-'}
                   </div>
                   <div className="p-2 px-6  py-3 text-sm flex items-center">
-                    {data.email || '-'}
+                    ${data.offerAmount || '-'}
                   </div>
                   <div className={'p-2 px-6  py-3 text-sm flex items-center '}>
                     <span
                       className={
                         'px-4 py-1 inline-block rounded w-[100px] text-xs text-center ' +
-                        (data.approved
-                          ? 'text-white bg-green-500'
-                          : ' text-white bg-yellow-400')
+                        `${data.status?.toLowerCase()}`
                       }>
-                      {`${data.approved ? 'APPROVED' : 'PENDING'}`}
+                      {data.status}
                     </span>
                   </div>
                   <div className="p-2 px-6">
-                    {data.approved ? (
+                    {((isOwner && data?.status !== offerStatus.CANCEL) ||
+                      (!isOwner &&
+                        data?.property?.status !==
+                          propertyStatus?.CONTINGENT)) && (
                       <button
                         className="p-2"
-                        onClick={() => cancelApproval(data.id)}>
+                        onClick={() => cancelOffer(data.id)}>
                         <FaTimes className="text-red-500" />
                       </button>
-                    ) : (
-                      <button
-                        className="p-2 mr-2"
-                        onClick={() => acceptRequest(data.id)}>
-                        <FaCheck className="text-green-500" />
-                      </button>
                     )}
+                    {(isOwner && data?.status === offerStatus.PENDING) ||
+                      (!isOwner &&
+                        data?.property?.status === propertyStatus?.PENDING && (
+                          <button
+                            className="p-2 mr-2"
+                            onClick={() => acceptOffer(data.id)}>
+                            <FaCheck className="text-green-500" />
+                          </button>
+                        ))}
                   </div>
                 </div>
               );

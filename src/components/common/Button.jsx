@@ -1,7 +1,7 @@
 import React from 'react';
 
 const sizes = {
-  sm: 'px-8 py-3 rounded-md text-sm',
+  sm: 'px-8 py-2 rounded-md text-sm',
   md: 'rounded-md py-2 px-5 sm:px-8',
   lg: 'px-5 py-3 rounded-lg text-lg'
 };

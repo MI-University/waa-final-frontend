@@ -151,7 +151,10 @@ input[type='radio']:focus {
   }
 }
 
-.available {
+.available,
+.accept,
+.accepted,
+.approved {
   @apply px-4 py-1 inline-block bg-green-500 text-sm rounded text-white;
 }
 
@@ -167,7 +170,10 @@ input[type='radio']:focus {
   @apply px-4 py-1 inline-block bg-cyan-500 text-sm text-white rounded;
 }
 
-.sold {
+.sold,
+.cancel,
+.cancelled,
+.rejected {
   @apply px-4 py-1 inline-block bg-blue-400 text-sm text-white rounded;
 }
 
@@ -203,5 +209,22 @@ input[type='radio']:focus {
   @apply py-1 flex text-xs items-center text-gray-400 text-sm rounded;
   & svg {
     @apply text-blue-300;
+  }
+}
+
+.offer-modal {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 100vh;
+  overflow: auto;
+  box-shadow: 0px 0px 800px 1000px rgba(0, 0, 0, 0.2);
+  width: 100vw;
+  height: 100vh;
+
+  @screen sm {
+    width: fit-content;
+    height: fit-content;
+    min-width: 400px;
   }
 }
