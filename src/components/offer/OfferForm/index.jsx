@@ -13,7 +13,6 @@ import {
   FaMinus
 } from 'react-icons/fa';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import s from './OfferForm.module.css';
 
 const OfferForm = ({ data }) => {
   const [loading, setLoading] = useState(false);
@@ -25,7 +24,6 @@ const OfferForm = ({ data }) => {
     if (data?.id) {
       setLoading(true);
       const readyData = {
-        id: user?.userId,
         offerAmount: body?.offerAmount,
         propertyId: data?.id,
         details: body.details

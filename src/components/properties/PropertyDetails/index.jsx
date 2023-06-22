@@ -16,7 +16,6 @@ import {
 import { MdOutlineMessage } from 'react-icons/md';
 import { Navigate, useParams } from 'react-router';
 import { useNavigate } from 'react-router-dom';
-import s from './PropertyDetails.module.css';
 
 const PropertyDetails = ({ forSeller = false }) => {
   const [data, setData] = useState(null);
@@ -39,8 +38,12 @@ const PropertyDetails = ({ forSeller = false }) => {
   };
 
   const sendOffer = () => {
-    setModalContent(<OfferForm data={data} />);
-    openModal();
+  if(isAuthenticated){
+      setModalContent(<OfferForm data={data} />);
+      openModal();
+    } else {
+      navigate('/login');
+    }
   };
 
   const sendMessage = () => {
@@ -161,7 +164,6 @@ const PropertyDetails = ({ forSeller = false }) => {
                     {forSeller ? (
                       <></>
                     ) : (
-                      isAuthenticated &&
                       !isOwner && (
                         <div className="mb-4 flex items-center mt-8">
                           {data?.status !== propertyStatus.CONTINGENT &&
