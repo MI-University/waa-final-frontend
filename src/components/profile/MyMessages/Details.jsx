@@ -57,13 +57,13 @@ const MyMessageDetails = () => {
             )}
             <div className="flex-grow relative">
               <div
-                className="h-full overflow-auto pr-4 absolute w-full"
+                className="h-full overflow-auto pr-4 absolute w-full flex flex-col-reverse"
                 ref={scrollRef}>
                 {list?.map((data, i) => {
                   return (
                     <div
                       className={
-                        'flex first:mt-6 last:mb-6 ' +
+                        'flex first:pb-6 last:pt-6 ' +
                         (data?.recipient?.id === user?.id
                           ? 'justify-start'
                           : 'justify-end')

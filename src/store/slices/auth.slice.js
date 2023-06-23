@@ -21,6 +21,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isAuthenticated = false;
       state.token = null;
+      state.user = null;
     }
   }
 });

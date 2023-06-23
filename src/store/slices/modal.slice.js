@@ -14,7 +14,6 @@ const modalSlice = createSlice({
       state.modalContent = '';
     },
     setContent: (state, action) => {
-      console.log("action.payload",action.payload);
       state.modalContent = action.payload;
     }
   }
