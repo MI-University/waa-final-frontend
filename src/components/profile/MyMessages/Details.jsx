@@ -64,21 +64,21 @@ const MyMessageDetails = () => {
                     <div
                       className={
                         'flex first:pb-6 last:pt-6 ' +
-                        (data?.recipient?.id === user?.id
+                        (data?.sender?.id === user?.userId
                           ? 'justify-start'
                           : 'justify-end')
                       }>
                       <div
                         className={
                           'p-2 px-6  py-2 text-sm flex items-center ' +
-                          (data?.recipient?.id === user?.id
+                          (data?.sender?.id === user?.userId
                             ? 'mr-6'
                             : 'ml-6 flex-row-reverse')
                         }>
                         <FaUser
                           className={
                             'p-3 h-10 w-10 text-gray-400 rounded-full flex justify-center items-center bg-gray-200 ' +
-                            (data?.recipient?.id === user?.id ? 'mr-2' : 'ml-2')
+                            (data?.sender?.id === user?.userId ? 'mr-2' : 'ml-2')
                           }
                         />
                         {data.message || '-'}
