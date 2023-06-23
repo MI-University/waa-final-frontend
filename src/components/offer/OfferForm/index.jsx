@@ -25,7 +25,6 @@ const OfferForm = ({ data }) => {
     if (data?.id) {
       setLoading(true);
       const readyData = {
-        id: user?.userId,
         offerAmount: body?.offerAmount,
         propertyId: data?.id,
         details: body.details

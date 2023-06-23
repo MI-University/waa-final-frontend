@@ -10,7 +10,7 @@ export const apiDomains = {
   AUTH: '/auth',
   PROPERTY: '/properties',
   OWNER: '/users',
-  OFFER: '/users/offers',
+  OFFER: '/offers',
   MESSAGE: '/messages'
 };
 
@@ -23,6 +23,6 @@ export const propertyStatus = {
 
 export const offerStatus = {
   PENDING: 'PENDING',
-  ACCEPT: 'ACCEPT',
-  CANCEL: 'CANCEL'
+  ACCEPTED: 'ACCEPTED',
+  CANCELLED: 'CANCELLED'
 };

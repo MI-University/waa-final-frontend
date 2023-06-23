@@ -3,6 +3,7 @@ import { Empty } from '@components/ui/icons';
 import { offerService } from '@service/';
 import { ownerService } from '@service/';
 import { useData } from '@store/providers/Provider';
+import { paths } from '@utils/constants/paths.contants';
 import {
   offerStatus,
   propertyStatus,
@@ -94,7 +95,13 @@ const MyOffers = () => {
               return (
                 <div className="grid grid-cols-4 gap-4 [&:nth-child(2n)]:bg-gray-100">
                   <div className="p-2 px-6  py-3 text-sm flex items-center">
-                    {data.property?.title || '-'}
+                    <Link
+                      to={(isOwner
+                        ? paths.MY_PROPERTY_DETAILS
+                        : paths.PROPERTY_DETAILS
+                      ).replace(':id', data?.property?.id)}>
+                      {data.property?.title || '-'}
+                    </Link>
                   </div>
                   <div className="p-2 px-6  py-3 text-sm flex items-center">
                     ${data.offerAmount || '-'}
@@ -102,32 +109,51 @@ const MyOffers = () => {
                   <div className={'p-2 px-6  py-3 text-sm flex items-center '}>
                     <span
                       className={
-                        'px-4 py-1 inline-block rounded w-[100px] text-xs text-center ' +
+                        'px-4 pt-1 leading-none inline-block rounded w-[120px] text-xs text-center ' +
                         `${data.status?.toLowerCase()}`
                       }>
                       {data.status}
+                      {data?.status === offerStatus?.ACCEPTED && (
+                        <small className="text-[8px] pb-[.5px] leading-none block">
+                          by{' '}
+                          {data?.property?.status === propertyStatus?.PENDING
+                            ? 'owner'
+                            : 'both'}
+                        </small>
+                      )}
                     </span>
                   </div>
                   <div className="p-2 px-6">
-                    {((isOwner && data?.status !== offerStatus.CANCEL) ||
-                      (!isOwner &&
-                        data?.property?.status !==
-                          propertyStatus?.CONTINGENT)) && (
-                      <button
-                        className="p-2"
-                        onClick={() => cancelOffer(data.id)}>
-                        <FaTimes className="text-red-500" />
-                      </button>
-                    )}
-                    {(isOwner && data?.status === offerStatus.PENDING) ||
-                      (!isOwner &&
-                        data?.property?.status === propertyStatus?.PENDING && (
+                    {data?.status !== offerStatus.CANCELLED && (
+                      <>
+                        {((isOwner &&
+                          data?.property?.status ===
+                            propertyStatus.AVAILABLE) ||
+                          (!isOwner &&
+                            data?.status === offerStatus?.ACCEPTED &&
+                            data?.property?.status ===
+                              propertyStatus?.PENDING)) && (
                           <button
                             className="p-2 mr-2"
                             onClick={() => acceptOffer(data.id)}>
                             <FaCheck className="text-green-500" />
                           </button>
-                        ))}
+                        )}
+                        {((isOwner &&
+                          data?.property?.status !== propertyStatus?.SOLD) ||
+                          (!isOwner &&
+                            data?.property?.status ===
+                              (propertyStatus?.AVAILABLE ||
+                                data?.property?.status ===
+                                  propertyStatus?.PENDING))) && (
+                          <button
+                            className="p-2"
+                            onClick={() => cancelOffer(data.id)}>
+                            <FaTimes className="text-red-500" />
+                          </button>
+                        )}
+                      </>
+                    )}
                   </div>
                 </div>
               );

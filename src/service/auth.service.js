@@ -10,7 +10,7 @@ const login = (data) => {
     })
     .catch((error) => {
       console.error('Login error', error);
-      throw Error(error);
+      throw new Error(error.response.data.message || error);
     });
 };
 
@@ -21,7 +21,7 @@ const register = (data) => {
     })
     .catch((error) => {
       console.error('Registration error:', error);
-      throw Error(error);
+      throw Error(error.response.data.message || error);
     });
 };
 

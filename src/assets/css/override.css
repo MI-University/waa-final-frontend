@@ -152,9 +152,7 @@ input[type='radio']:focus {
 }
 
 .available,
-.accept,
-.accepted,
-.approved {
+.accepted {
   @apply px-4 py-1 inline-block bg-green-500 text-sm rounded text-white;
 }
 
@@ -170,11 +168,12 @@ input[type='radio']:focus {
   @apply px-4 py-1 inline-block bg-cyan-500 text-sm text-white rounded;
 }
 
-.sold,
-.cancel,
-.cancelled,
-.rejected {
+.sold {
   @apply px-4 py-1 inline-block bg-blue-400 text-sm text-white rounded;
+}
+
+.cancelled {
+  @apply px-4 py-1 inline-block bg-red-400 text-sm text-white rounded;
 }
 
 .available-txt {

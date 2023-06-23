@@ -14,6 +14,17 @@ const getAll = () => {
     });
 };
 
+const getOne = (id) => {
+  return API.get(`${PATH}/${id}`)
+    .then((res) => {
+      return res.data?.data;
+    })
+    .catch((error) => {
+      console.error(error);
+      return null;
+    });
+};
+
 const send = (body) => {
   return API.post(`${PATH}`, body)
     .then((res) => {
@@ -25,4 +36,4 @@ const send = (body) => {
     });
 };
 
-export { getAll, send };
+export { getAll, getOne, send };

@@ -1,7 +1,15 @@
-export const debounce = (callback, time) => {
-  let ref = null;
-  return (props) => {
-    clearTimeout(ref);
-    ref = setTimeout(() => callback(props), time);
+import { useMemo } from 'react';
+
+export const DebounceHook = () => {
+  const debounce = useMemo(() => {
+    let ref = null;
+    return (callback, time) => {
+      clearTimeout(ref);
+      ref = setTimeout(() => callback(), time);
+    };
+  }, []);
+
+  return {
+    debounce
   };
 };

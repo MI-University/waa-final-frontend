@@ -1,12 +1,15 @@
 import { Logo } from '@components/ui';
 import { navItems } from '@data/dynamic';
 import { useData } from '@store/providers/Provider';
-import React from 'react';
-import { Outlet } from 'react-router';
+import { paths } from '@utils/constants/paths.contants';
+import React, { useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router';
 import { Link, redirect } from 'react-router-dom';
 import s from './DashboardLayout.module.css';
 
 const DashboardLayout = () => {
+  const [inMessagePage, setInMessagePage] = useState(false);
+  const location = useLocation();
   const { logout, user } = useData();
   const nav = navItems[user.role];
   const isApproved = user?.approved;
@@ -14,6 +17,13 @@ const DashboardLayout = () => {
     logout();
     redirect('/');
   };
+  useEffect(() => {
+    if (location.pathname.includes(paths.MY_MESSAGES)) {
+      setInMessagePage(true);
+    } else {
+      setInMessagePage(false);
+    }
+  }, [location]);
   return (
     <div className="h-screen">
       <div className="grid grid-cols-10 h-full">
@@ -60,7 +70,11 @@ const DashboardLayout = () => {
           </div>
         </div>
         <div className="col-span-10 relative lg:col-span-7 flex justify-center h-screen overflow-auto ">
-          <div className="w-full h-screen overflow-auto p-6 lg:p-12 lg:px-16">
+          <div
+            className={
+              'w-full h-screen overflow-auto p-6 lg:p-12 lg:px-16' +
+              (inMessagePage ? ' !p-0' : '')
+            }>
             <Outlet />
           </div>
         </div>

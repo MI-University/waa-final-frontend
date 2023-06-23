@@ -161,7 +161,6 @@ const PropertyDetails = ({ forSeller = false }) => {
                     {forSeller ? (
                       <></>
                     ) : (
-                      isAuthenticated &&
                       !isOwner && (
                         <div className="mb-4 flex items-center mt-8">
                           {data?.status !== propertyStatus.CONTINGENT &&
@@ -177,7 +176,7 @@ const PropertyDetails = ({ forSeller = false }) => {
                             outlined
                             className="flex items-center !px-5"
                             onClick={sendMessage}>
-                            <MdOutlineMessage className="text-accent text-sm mr-2" />
+                            <MdOutlineMessage className="text-sm mr-2" />
                             <span>Send Message</span>
                           </Button>
                         </div>
