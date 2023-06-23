@@ -13,7 +13,6 @@ import {
   FaMinus
 } from 'react-icons/fa';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import s from './OfferForm.module.css';
 
 const OfferForm = ({ data }) => {
   const [loading, setLoading] = useState(false);
